@@ -468,7 +468,7 @@ def send_group_email(group, config, templates_dir, batch_size=10, delay=10):
 
                 for colleague in batch:
                     # tracking_link = f"https://ria-app.vercel.app/phishing_test/{colleague.id}"
-                    tracking_link = f"http://localhost:8080/phishing_test/{colleague.id}"
+                    tracking_link = f"https://trial-ria-app.vercel.app/phishing_test/{colleague.id}"
                     to_email = colleague.email
                     msg = MIMEMultipart('related')
                     msg['Subject'] = email_subject
