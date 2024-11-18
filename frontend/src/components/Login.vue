@@ -46,7 +46,7 @@ export default {
         async login() {
             try {
                 // const response = await fetch('https://ria-app.onrender.com/login', {
-                const response = await fetch('http://127.0.0.1:5000/login', {
+                const response = await fetch('https://trial-ria-app.onrender.com/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
