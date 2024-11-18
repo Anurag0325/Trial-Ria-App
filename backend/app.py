@@ -448,8 +448,71 @@ def send_email():
         return jsonify({'message': f'Error sending emails: {str(e)}'}), 500
 
 
+# def send_group_email(group, config, templates_dir, batch_size=10, delay=10):
+#     """Helper function to send emails to a group in small batches."""
+#     from_email = config['email']
+#     password = config['password']
+#     email_subject = config['subject']
+#     action_name = config['action_name']
+
+#     with open(os.path.join(templates_dir, config['template'])) as f:
+#         email_template = f.read()
+
+#     try:
+#         with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
+#             server.starttls()
+#             server.login(from_email, password)
+
+#             for i in range(0, len(group), batch_size):
+#                 batch = group[i:i + batch_size]
+
+#                 for colleague in batch:
+#                     # tracking_link = f"https://ria-app.vercel.app/phishing_test/{colleague.id}"
+#                     tracking_link = f"https://trial-ria-app.vercel.app/phishing_test/{colleague.id}"
+#                     to_email = colleague.email
+#                     msg = MIMEMultipart('related')
+#                     msg['Subject'] = email_subject
+#                     msg['From'] = from_email
+#                     msg['To'] = to_email
+
+#                     body = email_template.replace(
+#                         "{{recipient_name}}", colleague.name)
+#                     body = body.replace("{{action_link}}", tracking_link)
+#                     body = body.replace("{{action_name}}", action_name)
+#                     body = body.replace("{{email_subject}}", email_subject)
+
+#                     html_content = f"""
+#                     <html>
+#                         <body>
+#                             {body}
+#                         </body>
+#                     </html>
+#                     """
+#                     msg.attach(MIMEText(html_content, 'html'))
+
+#                     try:
+#                         server.send_message(msg)
+#                         print(f"Email sent to {colleague.email}")
+
+#                         update_email_log(colleague)
+#                         emailed_candidates.append({
+#                             'name': colleague.name,
+#                             'email': colleague.email,
+#                             'designation': colleague.designation
+#                         })
+
+#                     except Exception as e:
+#                         print(
+#                             f"Failed to send email to {colleague.email}: {str(e)}")
+
+#                 # Delay between each batch to manage CPU load
+#                 time.sleep(delay)
+
+#     except Exception as e:
+#         print(f"Error in connecting or sending emails: {str(e)}")
+
+
 def send_group_email(group, config, templates_dir, batch_size=10, delay=10):
-    """Helper function to send emails to a group in small batches."""
     from_email = config['email']
     password = config['password']
     email_subject = config['subject']
@@ -458,58 +521,36 @@ def send_group_email(group, config, templates_dir, batch_size=10, delay=10):
     with open(os.path.join(templates_dir, config['template'])) as f:
         email_template = f.read()
 
-    try:
-        with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
-            server.starttls()
-            server.login(from_email, password)
+    with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
+        server.starttls()
+        server.login(from_email, password)
 
-            for i in range(0, len(group), batch_size):
-                batch = group[i:i + batch_size]
+        for i in range(0, len(group), batch_size):
+            batch = group[i:i + batch_size]  # Process emails in batches
+            for colleague in batch:
+                tracking_link = f"https://ria-app.vercel.app/phishing_test/{colleague.id}"
+                body = email_template.replace(
+                    "{{recipient_name}}", colleague.name)
+                body = body.replace("{{action_link}}", tracking_link)
+                body = body.replace("{{action_name}}", action_name)
+                body = body.replace("{{email_subject}}", email_subject)
 
-                for colleague in batch:
-                    # tracking_link = f"https://ria-app.vercel.app/phishing_test/{colleague.id}"
-                    tracking_link = f"https://trial-ria-app.vercel.app/phishing_test/{colleague.id}"
-                    to_email = colleague.email
-                    msg = MIMEMultipart('related')
-                    msg['Subject'] = email_subject
-                    msg['From'] = from_email
-                    msg['To'] = to_email
+                msg = MIMEMultipart('related')
+                msg['Subject'] = email_subject
+                msg['From'] = from_email
+                msg['To'] = colleague.email
+                msg.attach(MIMEText(body, 'html'))
 
-                    body = email_template.replace(
-                        "{{recipient_name}}", colleague.name)
-                    body = body.replace("{{action_link}}", tracking_link)
-                    body = body.replace("{{action_name}}", action_name)
-                    body = body.replace("{{email_subject}}", email_subject)
+                try:
+                    server.send_message(msg)
+                    print(f"Email sent to {colleague.email}")
+                except Exception as e:
+                    print(
+                        f"Failed to send email to {colleague.email}: {str(e)}")
+                finally:
+                    del msg  # Explicitly delete the message object to free memory
 
-                    html_content = f"""
-                    <html>
-                        <body>
-                            {body}
-                        </body>
-                    </html>
-                    """
-                    msg.attach(MIMEText(html_content, 'html'))
-
-                    try:
-                        server.send_message(msg)
-                        print(f"Email sent to {colleague.email}")
-
-                        update_email_log(colleague)
-                        emailed_candidates.append({
-                            'name': colleague.name,
-                            'email': colleague.email,
-                            'designation': colleague.designation
-                        })
-
-                    except Exception as e:
-                        print(
-                            f"Failed to send email to {colleague.email}: {str(e)}")
-
-                # Delay between each batch to manage CPU load
-                time.sleep(delay)
-
-    except Exception as e:
-        print(f"Error in connecting or sending emails: {str(e)}")
+            time.sleep(delay)  # Delay before the next batch
 
 # def update_email_log(colleague):
 #     """Single function to update the record in the EmailLogs table."""
