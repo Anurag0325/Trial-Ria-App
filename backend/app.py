@@ -387,65 +387,65 @@ emailed_candidates = []
 #         except Exception as e:
 #             print(f"Failed to send email to {colleague.email}: {str(e)}")
 
-@app.route('/send_email', methods=['GET', 'POST'])
-def send_email():
-    global emailed_candidates
-    emailed_candidates = []
+# @app.route('/send_email', methods=['GET', 'POST'])
+# def send_email():
+#     global emailed_candidates
+#     emailed_candidates = []
 
-    templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
-    colleagues = Colleagues.query.all()
+#     templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
+#     colleagues = Colleagues.query.all()
 
-    part_size = len(colleagues) // 4
-    group1 = colleagues[:part_size]
-    group2 = colleagues[part_size:2*part_size]
-    group3 = colleagues[2*part_size:3*part_size]
-    group4 = colleagues[3*part_size:]
+#     part_size = len(colleagues) // 4
+#     group1 = colleagues[:part_size]
+#     group2 = colleagues[part_size:2*part_size]
+#     group3 = colleagues[2*part_size:3*part_size]
+#     group4 = colleagues[3*part_size:]
 
-    department_config = {
-        'HR': {
-            'email': os.getenv('HR_EMAIL'),
-            'password': os.getenv('HR_PASSWORD'),
-            'template': 'hr_email_template.html',
-            'subject': "Update Your Payroll Information for Q4",
-            'action_name': "Update Payroll Information"
-        },
-        'Leadership': {
-            'email': os.getenv('LEADERSHIP_EMAIL'),
-            'password': os.getenv('LEADERSHIP_PASSWORD'),
-            'template': 'leadership_template.html',
-            'subject': "Strategic Plan Review for Q4 - Action Required",
-            'action_name': "Review Strategic Plan"
-        },
-        'Developer': {
-            'email': os.getenv('DEVELOPER_EMAIL'),
-            'password': os.getenv('DEVELOPER_PASSWORD'),
-            'template': 'developer_template.html',
-            'subject': "Security Patch Deployment for Development Tools",
-            'action_name': "Download Security Patch"
-        },
-        'Account': {
-            'email': os.getenv('ACCOUNT_EMAIL'),
-            'password': os.getenv('ACCOUNT_PASSWORD'),
-            'template': 'accounts_email_template.html',
-            'subject': "System Update for new Compliance Standards",
-            'action_name': "Update Credential"
-        }
-    }
+#     department_config = {
+#         'HR': {
+#             'email': os.getenv('HR_EMAIL'),
+#             'password': os.getenv('HR_PASSWORD'),
+#             'template': 'hr_email_template.html',
+#             'subject': "Update Your Payroll Information for Q4",
+#             'action_name': "Update Payroll Information"
+#         },
+#         'Leadership': {
+#             'email': os.getenv('LEADERSHIP_EMAIL'),
+#             'password': os.getenv('LEADERSHIP_PASSWORD'),
+#             'template': 'leadership_template.html',
+#             'subject': "Strategic Plan Review for Q4 - Action Required",
+#             'action_name': "Review Strategic Plan"
+#         },
+#         'Developer': {
+#             'email': os.getenv('DEVELOPER_EMAIL'),
+#             'password': os.getenv('DEVELOPER_PASSWORD'),
+#             'template': 'developer_template.html',
+#             'subject': "Security Patch Deployment for Development Tools",
+#             'action_name': "Download Security Patch"
+#         },
+#         'Account': {
+#             'email': os.getenv('ACCOUNT_EMAIL'),
+#             'password': os.getenv('ACCOUNT_PASSWORD'),
+#             'template': 'accounts_email_template.html',
+#             'subject': "System Update for new Compliance Standards",
+#             'action_name': "Update Credential"
+#         }
+#     }
 
-    try:
-        send_group_email(group1, department_config['HR'], templates_dir)
-        send_group_email(
-            group2, department_config['Leadership'], templates_dir)
-        send_group_email(group3, department_config['Developer'], templates_dir)
-        send_group_email(group4, department_config['Account'], templates_dir)
+#     try:
+#         send_group_email(group1, department_config['HR'], templates_dir)
+#         send_group_email(
+#             group2, department_config['Leadership'], templates_dir)
+#         send_group_email(group3, department_config['Developer'], templates_dir)
+#         send_group_email(group4, department_config['Account'], templates_dir)
 
-        return jsonify({
-            'message': 'Emails sent to colleagues.',
-            'emailed_candidates': emailed_candidates
-        }), 200
+#         return jsonify({
+#             'message': 'Emails sent to colleagues.',
+#             'emailed_candidates': emailed_candidates
+#         }), 200
 
-    except Exception as e:
-        return jsonify({'message': f'Error sending emails: {str(e)}'}), 500
+#     except Exception as e:
+#         return jsonify({'message': f'Error sending emails: {str(e)}'}), 500
 
 
 # def send_group_email(group, config, templates_dir, batch_size=10, delay=10):
@@ -512,45 +512,108 @@ def send_email():
 #         print(f"Error in connecting or sending emails: {str(e)}")
 
 
-def send_group_email(group, config, templates_dir, batch_size=10, delay=10):
-    from_email = config['email']
-    password = config['password']
-    email_subject = config['subject']
-    action_name = config['action_name']
+# def send_group_email(group, config, templates_dir, batch_size=10, delay=10):
+#     from_email = config['email']
+#     password = config['password']
+#     email_subject = config['subject']
+#     action_name = config['action_name']
 
-    with open(os.path.join(templates_dir, config['template'])) as f:
-        email_template = f.read()
+#     with open(os.path.join(templates_dir, config['template'])) as f:
+#         email_template = f.read()
 
-    with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
-        server.starttls()
-        server.login(from_email, password)
+#     with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
+#         server.starttls()
+#         server.login(from_email, password)
 
-        for i in range(0, len(group), batch_size):
-            batch = group[i:i + batch_size]  # Process emails in batches
-            for colleague in batch:
-                tracking_link = f"https://ria-app.vercel.app/phishing_test/{colleague.id}"
-                body = email_template.replace(
-                    "{{recipient_name}}", colleague.name)
-                body = body.replace("{{action_link}}", tracking_link)
-                body = body.replace("{{action_name}}", action_name)
-                body = body.replace("{{email_subject}}", email_subject)
+#         for i in range(0, len(group), batch_size):
+#             batch = group[i:i + batch_size]  # Process emails in batches
+#             for colleague in batch:
+#                 tracking_link = f"https://ria-app.vercel.app/phishing_test/{colleague.id}"
+#                 body = email_template.replace(
+#                     "{{recipient_name}}", colleague.name)
+#                 body = body.replace("{{action_link}}", tracking_link)
+#                 body = body.replace("{{action_name}}", action_name)
+#                 body = body.replace("{{email_subject}}", email_subject)
 
-                msg = MIMEMultipart('related')
-                msg['Subject'] = email_subject
-                msg['From'] = from_email
-                msg['To'] = colleague.email
-                msg.attach(MIMEText(body, 'html'))
+#                 msg = MIMEMultipart('related')
+#                 msg['Subject'] = email_subject
+#                 msg['From'] = from_email
+#                 msg['To'] = colleague.email
+#                 msg.attach(MIMEText(body, 'html'))
 
-                try:
-                    server.send_message(msg)
-                    print(f"Email sent to {colleague.email}")
-                except Exception as e:
-                    print(
-                        f"Failed to send email to {colleague.email}: {str(e)}")
-                finally:
-                    del msg  # Explicitly delete the message object to free memory
+#                 try:
+#                     server.send_message(msg)
+#                     print(f"Email sent to {colleague.email}")
+#                 except Exception as e:
+#                     print(
+#                         f"Failed to send email to {colleague.email}: {str(e)}")
+#                 finally:
+#                     del msg  # Explicitly delete the message object to free memory
 
-            time.sleep(delay)  # Delay before the next batch
+#             time.sleep(delay)  # Delay before the next batch
+
+
+@app.route('/send_email', methods=['POST'])
+def send_email():
+    templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
+    department_config = {
+        'HR': {
+            'email': os.getenv('HR_EMAIL'),
+            'password': os.getenv('HR_PASSWORD'),
+            'template': 'hr_email_template.html',
+            'subject': "Update Your Payroll Information for Q4",
+            'action_name': "Update Payroll Information"
+        },
+        'Leadership': {
+            'email': os.getenv('LEADERSHIP_EMAIL'),
+            'password': os.getenv('LEADERSHIP_PASSWORD'),
+            'template': 'leadership_template.html',
+            'subject': "Strategic Plan Review for Q4 - Action Required",
+            'action_name': "Review Strategic Plan"
+        },
+        'Developer': {
+            'email': os.getenv('DEVELOPER_EMAIL'),
+            'password': os.getenv('DEVELOPER_PASSWORD'),
+            'template': 'developer_template.html',
+            'subject': "Security Patch Deployment for Development Tools",
+            'action_name': "Download Security Patch"
+        },
+        'Account': {
+            'email': os.getenv('ACCOUNT_EMAIL'),
+            'password': os.getenv('ACCOUNT_PASSWORD'),
+            'template': 'accounts_email_template.html',
+            'subject': "System Update for new Compliance Standards",
+            'action_name': "Update Credential"
+        }
+    }
+
+    try:
+        with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
+            server.starttls()
+            for department, config in department_config.items():
+                colleagues = get_colleagues_by_department(department)
+                server.login(config['email'], config['password'])
+                for batch in get_batches(colleagues, batch_size=50):
+                    send_batch_emails(server, batch, config, templates_dir)
+                    time.sleep(10)  # Delay between batches
+        return jsonify({'message': 'Emails sent successfully!'}), 200
+
+    except Exception as e:
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+
+def send_batch_emails(server, batch, config, templates_dir):
+    email_template = load_template(config['template'], templates_dir)
+    for colleague in batch:
+        msg = construct_email(colleague, config, email_template)
+        try:
+            server.send_message(msg)
+            print(f"Email sent to {colleague.email}")
+        except Exception as e:
+            print(f"Failed to send: {colleague.email}, {str(e)}")
+        finally:
+            del msg
+
 
 # def update_email_log(colleague):
 #     """Single function to update the record in the EmailLogs table."""
