@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="D:\Anurag\Office\DPO Dashboard\Email Phising\Trial-Ria-App\backend\myenv"
+VIRTUAL_ENV="B:\Office\DPO Dashboard\Email Phising\Trial-Ria-App\backend\myenv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
