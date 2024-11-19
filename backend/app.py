@@ -2718,50 +2718,53 @@ emailed_candidates = []
 #######
 
 
+groups = [
+    {'start': 0, 'end': 400, 'config': 'Developer'},
+    {'start': 400, 'end': 788, 'config': 'Developer'},
+    {'start': 788, 'end': 802, 'config': 'Leadership'},
+    {'start': 802, 'end': 986, 'config': 'HR'},
+    {'start': 986, 'end': 1000, 'config': 'Account'}
+]
+
+department_config = {
+    'HR': {
+        'email': os.getenv('HR_EMAIL'),
+        'password': os.getenv('HR_PASSWORD'),
+        'template': 'hr_email_template.html',
+        'subject': "Update Your Payroll Information for Q4",
+        'action_name': "Update Payroll Information"
+    },
+    'Leadership': {
+        'email': os.getenv('LEADERSHIP_EMAIL'),
+        'password': os.getenv('LEADERSHIP_PASSWORD'),
+        'template': 'leadership_template.html',
+        'subject': "Strategic Plan Review for Q4 - Action Required",
+        'action_name': "Review Strategic Plan"
+    },
+    'Developer': {
+        'email': os.getenv('DEVELOPER_EMAIL'),
+        'password': os.getenv('DEVELOPER_PASSWORD'),
+        'template': 'developer_template.html',
+        'subject': "Security Patch Deployment for Development Tools",
+        'action_name': "Download Security Patch"
+    },
+    'Account': {
+        'email': os.getenv('ACCOUNT_EMAIL'),
+        'password': os.getenv('ACCOUNT_PASSWORD'),
+        'template': 'accounts_email_template.html',
+        'subject': "System Update for new Compliance Standards",
+        'action_name': "Update Credential"
+    }
+}
+
+templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
+
+
 @app.route('/send_email', methods=['GET', 'POST'])
 def send_email():
     """API to trigger email sending process."""
-    # Define the groups and configurations
-    groups = [
-        {'start': 0, 'end': 400, 'config': 'Developer'},
-        {'start': 400, 'end': 788, 'config': 'Developer'},
-        {'start': 788, 'end': 802, 'config': 'Leadership'},
-        {'start': 802, 'end': 986, 'config': 'HR'},
-        {'start': 986, 'end': 1000, 'config': 'Account'}
-    ]
-
-    department_config = {
-        'HR': {
-            'email': os.getenv('HR_EMAIL'),
-            'password': os.getenv('HR_PASSWORD'),
-            'template': 'hr_email_template.html',
-            'subject': "Update Your Payroll Information for Q4",
-            'action_name': "Update Payroll Information"
-        },
-        'Leadership': {
-            'email': os.getenv('LEADERSHIP_EMAIL'),
-            'password': os.getenv('LEADERSHIP_PASSWORD'),
-            'template': 'leadership_template.html',
-            'subject': "Strategic Plan Review for Q4 - Action Required",
-            'action_name': "Review Strategic Plan"
-        },
-        'Developer': {
-            'email': os.getenv('DEVELOPER_EMAIL'),
-            'password': os.getenv('DEVELOPER_PASSWORD'),
-            'template': 'developer_template.html',
-            'subject': "Security Patch Deployment for Development Tools",
-            'action_name': "Download Security Patch"
-        },
-        'Account': {
-            'email': os.getenv('ACCOUNT_EMAIL'),
-            'password': os.getenv('ACCOUNT_PASSWORD'),
-            'template': 'accounts_email_template.html',
-            'subject': "System Update for new Compliance Standards",
-            'action_name': "Update Credential"
-        }
-    }
-
-    templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
+    global emailed_candidates
+    emailed_candidates = []  # Reset the emailed candidates log
 
     try:
         # Call the function to send emails group by group
@@ -2776,7 +2779,6 @@ def send_email():
 def send_emails_by_group(groups, department_config, templates_dir):
     """Send emails group by group."""
     global emailed_candidates
-    emailed_candidates = []
 
     for group in groups:
         config = department_config[group['config']]
