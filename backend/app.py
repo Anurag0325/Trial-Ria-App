@@ -2718,37 +2718,88 @@ emailed_candidates = []
 #######
 
 
+@app.route('/send_email', methods=['GET', 'POST'])
+def send_email():
+    """API to trigger email sending process."""
+    # Define the groups and configurations
+    groups = [
+        {'start': 0, 'end': 400, 'config': 'Developer'},
+        {'start': 400, 'end': 788, 'config': 'Developer'},
+        {'start': 788, 'end': 802, 'config': 'Leadership'},
+        {'start': 802, 'end': 986, 'config': 'HR'},
+        {'start': 986, 'end': 1000, 'config': 'Account'}
+    ]
+
+    department_config = {
+        'HR': {
+            'email': os.getenv('HR_EMAIL'),
+            'password': os.getenv('HR_PASSWORD'),
+            'template': 'hr_email_template.html',
+            'subject': "Update Your Payroll Information for Q4",
+            'action_name': "Update Payroll Information"
+        },
+        'Leadership': {
+            'email': os.getenv('LEADERSHIP_EMAIL'),
+            'password': os.getenv('LEADERSHIP_PASSWORD'),
+            'template': 'leadership_template.html',
+            'subject': "Strategic Plan Review for Q4 - Action Required",
+            'action_name': "Review Strategic Plan"
+        },
+        'Developer': {
+            'email': os.getenv('DEVELOPER_EMAIL'),
+            'password': os.getenv('DEVELOPER_PASSWORD'),
+            'template': 'developer_template.html',
+            'subject': "Security Patch Deployment for Development Tools",
+            'action_name': "Download Security Patch"
+        },
+        'Account': {
+            'email': os.getenv('ACCOUNT_EMAIL'),
+            'password': os.getenv('ACCOUNT_PASSWORD'),
+            'template': 'accounts_email_template.html',
+            'subject': "System Update for new Compliance Standards",
+            'action_name': "Update Credential"
+        }
+    }
+
+    templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
+
+    try:
+        # Call the function to send emails group by group
+        send_emails_by_group(groups, department_config, templates_dir)
+
+        return jsonify({'message': 'Emails are being sent successfully.', 'status': 'success'}), 200
+
+    except Exception as e:
+        return jsonify({'message': f'Error: {str(e)}', 'status': 'error'}), 500
+
+
 def send_emails_by_group(groups, department_config, templates_dir):
     """Send emails group by group."""
     global emailed_candidates
     emailed_candidates = []
 
-    try:
-        for group in groups:
-            config = department_config[group['config']]
-            print(f"Processing group: {group['config']}")
+    for group in groups:
+        config = department_config[group['config']]
+        print(f"Processing group: {group['config']}")
 
-            # Load the template for the group
-            with open(os.path.join(templates_dir, config['template'])) as f:
-                email_template = f.read()
+        # Load the template for the group
+        with open(os.path.join(templates_dir, config['template'])) as f:
+            email_template = f.read()
 
-            send_emails_in_batches(
-                start_idx=group['start'],
-                end_idx=group['end'],
-                config=config,
-                templates_dir=templates_dir,
-                email_template=email_template,
-                batch_size=5,  # 5 emails per batch
-                email_delay=2,  # 2 seconds between emails
-                batch_delay=15  # 15 seconds between batches
-            )
+        send_emails_in_batches(
+            start_idx=group['start'],
+            end_idx=group['end'],
+            config=config,
+            templates_dir=templates_dir,
+            email_template=email_template,
+            batch_size=5,  # 5 emails per batch
+            email_delay=2,  # 2 seconds between emails
+            batch_delay=15  # 15 seconds between batches
+        )
 
-            # Clean up after finishing a group
-            gc.collect()  # Release memory
-            time.sleep(10)  # 10 seconds delay before the next group
-
-    except Exception as e:
-        print(f"Error in processing groups: {str(e)}")
+        # Clean up after finishing a group
+        gc.collect()  # Release memory
+        time.sleep(10)  # 10 seconds delay before the next group
 
 
 def send_emails_in_batches(start_idx, end_idx, config, templates_dir, email_template, batch_size, email_delay, batch_delay):
@@ -2822,52 +2873,6 @@ def send_emails_in_batches(start_idx, end_idx, config, templates_dir, email_temp
 
     except Exception as e:
         print(f"Error in sending emails: {str(e)}")
-
-
-# Example group configuration
-groups = [
-    {'start': 0, 'end': 400, 'config': 'Developer'},
-    {'start': 400, 'end': 788, 'config': 'Developer'},
-    {'start': 788, 'end': 802, 'config': 'Leadership'},
-    {'start': 802, 'end': 986, 'config': 'HR'},
-    {'start': 986, 'end': 1000, 'config': 'Account'}
-]
-
-department_config = {
-    'HR': {
-        'email': os.getenv('HR_EMAIL'),
-        'password': os.getenv('HR_PASSWORD'),
-        'template': 'hr_email_template.html',
-        'subject': "Update Your Payroll Information for Q4",
-        'action_name': "Update Payroll Information"
-    },
-    'Leadership': {
-        'email': os.getenv('LEADERSHIP_EMAIL'),
-        'password': os.getenv('LEADERSHIP_PASSWORD'),
-        'template': 'leadership_template.html',
-        'subject': "Strategic Plan Review for Q4 - Action Required",
-        'action_name': "Review Strategic Plan"
-    },
-    'Developer': {
-        'email': os.getenv('DEVELOPER_EMAIL'),
-        'password': os.getenv('DEVELOPER_PASSWORD'),
-        'template': 'developer_template.html',
-        'subject': "Security Patch Deployment for Development Tools",
-        'action_name': "Download Security Patch"
-    },
-    'Account': {
-        'email': os.getenv('ACCOUNT_EMAIL'),
-        'password': os.getenv('ACCOUNT_PASSWORD'),
-        'template': 'accounts_email_template.html',
-        'subject': "System Update for new Compliance Standards",
-        'action_name': "Update Credential"
-    }
-}
-
-templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
-
-# Start email processing
-send_emails_by_group(groups, department_config, templates_dir)
 
 
 # def send_group_email(group, config, templates_dir, batch_size=10, delay=10):
