@@ -57,8 +57,8 @@ export default {
         async fetchData(colleagueId) {
             console.log('Fetching data for colleague ID:', colleagueId);
             try {
-                // const response = await fetch(`https://ria-app.onrender.com/phishing_opened/${colleagueId}`);
-                const response = await fetch(`http://127.0.0.1:5000/phishing_opened/${colleagueId}`);
+                const response = await fetch(`https://trial-ria-app.onrender.com/phishing_opened/${colleagueId}`);
+                // const response = await fetch(`http://127.0.0.1:5000/phishing_opened/${colleagueId}`);
                 const data = await response.json();
                 console.log('Response data:', data);
                 if (data.showPopup) {
