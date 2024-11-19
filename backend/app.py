@@ -21,16 +21,31 @@ import jwt
 from sqlalchemy import func
 from dotenv import load_dotenv
 import time
+import psutil
+import gc
+from flask_caching import Cache
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
+import threading
+from time import sleep
+from sqlalchemy.orm import load_only
 
 load_dotenv()
 
 app = Flask(__name__)
+
+app.config['CACHE_TYPE'] = 'simple'  # In-memory cache
+cache = Cache(app)
 
 CORS(app)
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.sqlite3"
 app.config['SECRET_KEY'] = "anuragiitmadras"
+
+DATABASE_URL = 'sqlite:///database.sqlite3'  # Replace with your actual DB URL
+engine = create_engine(DATABASE_URL)
+Session = sessionmaker(bind=engine)
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
 #     'DATABASE_URL')  # Use full URL from Render
@@ -68,37 +83,37 @@ def insert_dummy_data():
             "department": "Developer", "designation": "Frontend Developer"},
         {"name": "Ritika", "email": "akanuragkumar4@gmail.com",
             "department": "Leadership", "designation": "CTO"},
-        {"name": "Lav Kaushik", "email": "neceyan223@cashbn.com",
+        {"name": "Lav Kaushik", "email": "somag89556@cpaurl.com",
             "department": "Leadership", "designation": "CEO"},
-        {"name": "Varun", "email": "jabic31324@cashbn.com.com",
+        {"name": "Varun", "email": "kafay34325@cpaurl.com",
             "department": "Leadership", "designation": "CEO"},
-        {"name": "TRG", "email": "dexogi8276@gitated.com",
+        {"name": "TRG", "email": "hafebom642@exoular.com",
             "department": "Training", "designation": "Training Coordinator"},
-        {"name": "sales", "email": "cefeneh202@cashbn.com",
+        {"name": "sales", "email": "hasej86977@gitated.com",
             "department": "Sales", "designation": "Sales Head"},
-        {"name": "NoidaISO", "email": "visal21099@exoular.com",
+        {"name": "NoidaISO", "email": "pecepi9521@cashbn.com",
             "department": "Noida", "designation": "Noida"},
-        {"name": "Ruby", "email": "gigaxak835@cashbn.com",
+        {"name": "Ruby", "email": "namax29728@gitated.com",
             "department": "IT", "designation": "IT Operations"},
-        {"name": "Babli", "email": "ciyopij185@cashbn.com",
+        {"name": "Babli", "email": "tixiy15582@cashbn.com",
             "department": "Sales", "designation": "Sales"},
-        {"name": "Shikha", "email": "rinafe4152@cpaurl.com",
+        {"name": "Shikha", "email": "yolenif475@gitated.com",
             "department": "Operations", "designation": "Opeartion Head"},
-        {"name": "Kanchan", "email": "kexas64393@gitated.com",
+        {"name": "Kanchan", "email": "jowis58296@cpaurl.com",
             "department": "Sales", "designation": "Sales"},
-        {"name": "Info", "email": "joxibid164@gitated.com",
+        {"name": "Info", "email": "kehot22123@cpaurl.com",
             "department": "Operations", "designation": "Information Sharing"},
-        {"name": "Vaishali", "email": "mepede1656@gitated.com",
+        {"name": "Vaishali", "email": "tomacob234@cpaurl.com",
             "department": "Certificate", "designation": "Certificate Head"},
-        {"name": "Neha", "email": "favose6971@exoular.com",
+        {"name": "Neha", "email": "dogif17943@cpaurl.com",
             "department": "Sales", "designation": "Sales"},
-        {"name": "DHR", "email": "cosenet450@cashbn.com",
+        {"name": "DHR", "email": "yinonoj630@kazvi.com",
             "department": "DHR", "designation": "DHR"},
-        {"name": "Delhi", "email": "rocit99094@cashbn.com",
+        {"name": "Delhi", "email": "selofo8026@merotx.com",
             "department": "Delhi", "designation": "Delhi"},
-        {"name": "Arun", "email": "sahex97344@gitated.com",
+        {"name": "Arun", "email": "xison17512@kazvi.com",
             "department": "Leadership", "designation": "CFO"},
-        {"name": "OPS", "email": "taceda8663@cashbn.com",
+        {"name": "OPS", "email": "citeji5554@kimasoft.com",
             "department": "OPS", "designation": "OPS"}
         # {"name": "Krishna Chaudhari", "email": "krishna.chaudhari@riaadvisory.com",
         #     "department": "Internal IT and Cloud Ops", "designation": "Associate Consultant"},
@@ -507,9 +522,151 @@ emailed_candidates = []
 
 #                 # Delay between each batch to manage CPU load
 #                 time.sleep(delay)
+#                 cpu_usage, memory_usage = log_system_usage()
+#                 if memory_usage > 80:  # If memory usage exceeds 80%, trigger garbage collection
+#                     print("High memory usage, performing garbage collection.")
+#                     gc.collect()
 
 #     except Exception as e:
 #         print(f"Error in connecting or sending emails: {str(e)}")
+
+
+@app.route('/send_email', methods=['GET', 'POST'])
+def send_email():
+    global emailed_candidates
+    emailed_candidates = []
+
+    templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
+    
+    # Define group sizes
+    groups = [
+        {'start': 0, 'end': 400, 'config': 'Developer'},
+        {'start': 400, 'end': 788, 'config': 'Developer'},
+        {'start': 788, 'end': 802, 'config': 'Leadership'},
+        {'start': 802, 'end': 986, 'config': 'HR'},
+        {'start': 986, 'end': 1000, 'config': 'Account'}
+    ]
+
+    department_config = {
+        'HR': {
+            'email': os.getenv('HR_EMAIL'),
+            'password': os.getenv('HR_PASSWORD'),
+            'template': 'hr_email_template.html',
+            'subject': "Update Your Payroll Information for Q4",
+            'action_name': "Update Payroll Information"
+        },
+        'Leadership': {
+            'email': os.getenv('LEADERSHIP_EMAIL'),
+            'password': os.getenv('LEADERSHIP_PASSWORD'),
+            'template': 'leadership_template.html',
+            'subject': "Strategic Plan Review for Q4 - Action Required",
+            'action_name': "Review Strategic Plan"
+        },
+        'Developer': {
+            'email': os.getenv('DEVELOPER_EMAIL'),
+            'password': os.getenv('DEVELOPER_PASSWORD'),
+            'template': 'developer_template.html',
+            'subject': "Security Patch Deployment for Development Tools",
+            'action_name': "Download Security Patch"
+        },
+        'Account': {
+            'email': os.getenv('ACCOUNT_EMAIL'),
+            'password': os.getenv('ACCOUNT_PASSWORD'),
+            'template': 'accounts_email_template.html',
+            'subject': "System Update for new Compliance Standards",
+            'action_name': "Update Credential"
+        }
+    }
+
+    try:
+        # Process each group separately
+        for group in groups:
+            send_group_email_in_batches(
+                start_idx=group['start'], 
+                end_idx=group['end'], 
+                config=department_config[group['config']], 
+                templates_dir=templates_dir
+            )
+
+        return jsonify({
+            'message': 'Emails sent to colleagues.',
+            'emailed_candidates': emailed_candidates
+        }), 200
+
+    except Exception as e:
+        return jsonify({'message': f'Error sending emails: {str(e)}'}), 500
+
+
+def send_group_email_in_batches(start_idx, end_idx, config, templates_dir, batch_size=5, delay=15):
+    """Send emails to a subset of the database in small batches."""
+    from_email = config['email']
+    password = config['password']
+    email_subject = config['subject']
+    action_name = config['action_name']
+
+    with open(os.path.join(templates_dir, config['template'])) as f:
+        email_template = f.read()
+
+    try:
+        with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
+            server.starttls()
+            server.login(from_email, password)
+
+            # Load the data in small batches
+            for i in range(start_idx, end_idx, batch_size):
+                batch = Colleagues.query.filter(
+                    Colleagues.id >= i + 1,
+                    Colleagues.id < i + batch_size + 1
+                ).all()
+
+                if not batch:
+                    break  # Stop if there are no more records
+
+                for colleague in batch:
+                    tracking_link = f"https://trial-ria-app.vercel.app/phishing_test/{colleague.id}"
+                    to_email = colleague.email
+                    msg = MIMEMultipart('related')
+                    msg['Subject'] = email_subject
+                    msg['From'] = from_email
+                    msg['To'] = to_email
+
+                    body = email_template.replace("{{recipient_name}}", colleague.name)
+                    body = body.replace("{{action_link}}", tracking_link)
+                    body = body.replace("{{action_name}}", action_name)
+                    body = body.replace("{{email_subject}}", email_subject)
+
+                    html_content = f"""
+                    <html>
+                        <body>
+                            {body}
+                        </body>
+                    </html>
+                    """
+                    msg.attach(MIMEText(html_content, 'html'))
+
+                    try:
+                        server.send_message(msg)
+                        print(f"Email sent to {colleague.email}")
+
+                        update_email_log(colleague)
+                        emailed_candidates.append({
+                            'name': colleague.name,
+                            'email': colleague.email,
+                            'designation': colleague.designation
+                        })
+
+                    except Exception as e:
+                        print(f"Failed to send email to {colleague.email}: {str(e)}")
+
+                # Delay between each batch to manage CPU load
+                time.sleep(delay)
+                cpu_usage, memory_usage = log_system_usage()
+                if memory_usage > 70:  # If memory usage exceeds 70%, trigger garbage collection
+                    print("High memory usage, performing garbage collection.")
+                    gc.collect()
+
+    except Exception as e:
+        print(f"Error in connecting or sending emails: {str(e)}")
 
 
 # def send_group_email(group, config, templates_dir, batch_size=10, delay=10):
@@ -552,67 +709,324 @@ emailed_candidates = []
 
 #             time.sleep(delay)  # Delay before the next batch
 
+# def log_system_usage():
+#     # CPU Usage
+#     cpu_usage = psutil.cpu_percent()  # Overall CPU usage as a percentage
+#     cpu_count = psutil.cpu_count()  # Total number of CPU cores
 
-@app.route('/send_email', methods=['POST'])
-def send_email():
-    templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
-    department_config = {
-        'HR': {
-            'email': os.getenv('HR_EMAIL'),
-            'password': os.getenv('HR_PASSWORD'),
-            'template': 'hr_email_template.html',
-            'subject': "Update Your Payroll Information for Q4",
-            'action_name': "Update Payroll Information"
-        },
-        'Leadership': {
-            'email': os.getenv('LEADERSHIP_EMAIL'),
-            'password': os.getenv('LEADERSHIP_PASSWORD'),
-            'template': 'leadership_template.html',
-            'subject': "Strategic Plan Review for Q4 - Action Required",
-            'action_name': "Review Strategic Plan"
-        },
-        'Developer': {
-            'email': os.getenv('DEVELOPER_EMAIL'),
-            'password': os.getenv('DEVELOPER_PASSWORD'),
-            'template': 'developer_template.html',
-            'subject': "Security Patch Deployment for Development Tools",
-            'action_name': "Download Security Patch"
-        },
-        'Account': {
-            'email': os.getenv('ACCOUNT_EMAIL'),
-            'password': os.getenv('ACCOUNT_PASSWORD'),
-            'template': 'accounts_email_template.html',
-            'subject': "System Update for new Compliance Standards",
-            'action_name': "Update Credential"
-        }
-    }
+#     # Memory Usage
+#     memory = psutil.virtual_memory()
+#     memory_usage = memory.percent  # Memory usage as a percentage
+#     memory_total = memory.total  # Total memory (in bytes)
+#     memory_available = memory.available  # Available memory (in bytes)
+#     memory_used = memory.used  # Used memory (in bytes)
 
-    try:
-        with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
-            server.starttls()
-            for department, config in department_config.items():
-                colleagues = get_colleagues_by_department(department)
-                server.login(config['email'], config['password'])
-                for batch in get_batches(colleagues, batch_size=50):
-                    send_batch_emails(server, batch, config, templates_dir)
-                    time.sleep(10)  # Delay between batches
-        return jsonify({'message': 'Emails sent successfully!'}), 200
+#     print(f"CPU Usage: {cpu_usage}%")
+#     print(f"Number of CPU cores: {cpu_count}")
+#     print(f"Memory Usage: {memory_usage}%")
+#     print(f"Total Memory: {memory_total / (1024 ** 3):.2f} GB")
+#     print(f"Used Memory: {memory_used / (1024 ** 3):.2f} GB")
+#     print(f"Available Memory: {memory_available / (1024 ** 3):.2f} GB")
 
-    except Exception as e:
-        return jsonify({'message': f'Error: {str(e)}'}), 500
+    # return cpu_usage, cpu_count, memory_usage, memory_total, memory_used, memory_available
+
+def log_system_usage():
+    # CPU Usage
+    cpu_usage = psutil.cpu_percent()  # Overall CPU usage as a percentage
+
+    # Memory Usage
+    memory = psutil.virtual_memory()
+    memory_usage = memory.percent  # Memory usage as a percentage
+
+    print(f"CPU Usage: {cpu_usage}%")
+    print(f"Memory Usage: {memory_usage}%")
+
+    return cpu_usage, memory_usage
+
+# Send email function
+# def send_group_email(group, config, templates_dir, batch_size=10, delay=10):
+#     """Helper function to send emails to a group in small batches."""
+#     from_email = config['email']
+#     password = config['password']
+#     email_subject = config['subject']
+#     action_name = config['action_name']
+
+#     # Load the email template from cache or file
+#     email_template = cache.get('email_template')
+#     if email_template is None:
+#         with open(os.path.join(templates_dir, config['template'])) as f:
+#             email_template = f.read()
+#         cache.set('email_template', email_template)
+
+#     try:
+#         # Connect to the SMTP server
+#         with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
+#             server.starttls()
+#             server.login(from_email, password)
+
+#             # Process emails in batches
+#             for i in range(0, len(group), batch_size):
+#                 batch = group[i:i + batch_size]
+                
+#                 for colleague in batch:
+#                     tracking_link = f"https://ria-app.vercel.app/phishing_test/{colleague.id}"
+#                     to_email = colleague.email
+#                     msg = MIMEMultipart('related')
+#                     msg['Subject'] = email_subject
+#                     msg['From'] = from_email
+#                     msg['To'] = to_email
+
+#                     # Customize the email body with the colleague's name and tracking link
+#                     body = email_template.replace("{{recipient_name}}", colleague.name)
+#                     body = body.replace("{{action_link}}", tracking_link)
+#                     body = body.replace("{{action_name}}", action_name)
+#                     body = body.replace("{{email_subject}}", email_subject)
+
+#                     html_content = f"""
+#                     <html>
+#                         <body>
+#                             {body}
+#                         </body>
+#                     </html>
+#                     """
+#                     msg.attach(MIMEText(html_content, 'html'))
+
+#                     try:
+#                         server.send_message(msg)
+#                         print(f"Email sent to {colleague.email}")
+                        
+#                         # Log the sent email details
+#                         update_email_log(colleague)
+
+#                     except Exception as e:
+#                         print(f"Failed to send email to {colleague.email}: {str(e)}")
+
+#                 # Delay between batches to prevent overloading the CPU
+#                 time.sleep(delay)
+
+#                 # Log system usage and perform garbage collection
+#                 cpu_usage, memory_usage = log_system_usage()
+#                 if memory_usage > 80:  # If memory usage exceeds 80%, trigger garbage collection
+#                     print("High memory usage, performing garbage collection.")
+#                     gc.collect()
+
+#     except Exception as e:
+#         print(f"Error in connecting or sending emails: {str(e)}")
+
+# # Email sending route
+# @app.route('/send_email', methods=['GET', 'POST'])
+# def send_email():
+#     global emailed_candidates
+#     emailed_candidates = []
+
+#     templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
+#     colleagues = Colleagues.query.all()
+
+#     # Define groupings
+#     part_size = len(colleagues) // 5
+#     group1 = colleagues[:8]
+#     group2 = colleagues[8:13]
+#     group3 = colleagues[13:18]
+#     group4 = colleagues[18:20]
+#     group5 = colleagues[20:]
+
+#     # Department configuration
+#     department_config = {
+#         'HR': {
+#             'email': os.getenv('HR_EMAIL'),
+#             'password': os.getenv('HR_PASSWORD'),
+#             'template': 'hr_email_template.html',
+#             'subject': "Update Your Payroll Information for Q4",
+#             'action_name': "Update Payroll Information"
+#         },
+#         'Leadership': {
+#             'email': os.getenv('LEADERSHIP_EMAIL'),
+#             'password': os.getenv('LEADERSHIP_PASSWORD'),
+#             'template': 'leadership_template.html',
+#             'subject': "Strategic Plan Review for Q4 - Action Required",
+#             'action_name': "Review Strategic Plan"
+#         },
+#         'Developer': {
+#             'email': os.getenv('DEVELOPER_EMAIL'),
+#             'password': os.getenv('DEVELOPER_PASSWORD'),
+#             'template': 'developer_template.html',
+#             'subject': "Security Patch Deployment for Development Tools",
+#             'action_name': "Download Security Patch"
+#         },
+
+#         'Developer_1': {
+#             'email': os.getenv('DEVELOPER_EMAIL_1'),
+#             'password': os.getenv('DEVELOPER_PASSWORD_1'),
+#             'template': 'developer_template.html',
+#             'subject': "Security Patch Deployment for Development Tools",
+#             'action_name': "Download Security Patch"
+#         },
 
 
-def send_batch_emails(server, batch, config, templates_dir):
-    email_template = load_template(config['template'], templates_dir)
-    for colleague in batch:
-        msg = construct_email(colleague, config, email_template)
-        try:
-            server.send_message(msg)
-            print(f"Email sent to {colleague.email}")
-        except Exception as e:
-            print(f"Failed to send: {colleague.email}, {str(e)}")
-        finally:
-            del msg
+#         'Account': {
+#             'email': os.getenv('ACCOUNT_EMAIL'),
+#             'password': os.getenv('ACCOUNT_PASSWORD'),
+#             'template': 'accounts_email_template.html',
+#             'subject': "System Update for new Compliance Standards",
+#             'action_name': "Update Credential"
+#         }
+#     }
+
+#     try:
+#         # Send emails for each group
+#         send_group_email(group1, department_config['Developer'], templates_dir)
+#         send_group_email(group2, department_config['Developer_1'], templates_dir)
+#         send_group_email(group3, department_config['HR'], templates_dir)
+#         send_group_email(group4, department_config['Account'], templates_dir)
+#         send_group_email(group5, department_config['Leadership'], templates_dir)
+
+#         return jsonify({
+#             'message': 'Emails sent to colleagues.',
+#             'emailed_candidates': emailed_candidates
+#         }), 200
+
+#     except Exception as e:
+#         return jsonify({'message': f'Error sending emails: {str(e)}'}), 500
+
+
+# def send_group_email(group_start, group_end, config, templates_dir, batch_size=10, delay=10):
+#     """Helper function to send emails to a group in small batches."""
+#     from_email = config['email']
+#     password = config['password']
+#     email_subject = config['subject']
+#     action_name = config['action_name']
+
+#     # Load the email template from cache or file
+#     email_template = cache.get('email_template')
+#     if email_template is None:
+#         with open(os.path.join(templates_dir, config['template'])) as f:
+#             email_template = f.read()
+#         cache.set('email_template', email_template)
+
+#     try:
+#         # Connect to the SMTP server
+#         with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
+#             server.starttls()
+#             server.login(from_email, password)
+
+#             # Query the database for the batch of colleagues
+#             session = Session()
+#             colleagues = session.query(Colleagues).slice(group_start, group_end).all()
+            
+#             # Process emails in batches
+#             for i in range(0, len(colleagues), batch_size):
+#                 batch = colleagues[i:i + batch_size]
+                
+#                 for colleague in batch:
+#                     tracking_link = f"https://ria-app.vercel.app/phishing_test/{colleague.id}"
+#                     to_email = colleague.email
+#                     msg = MIMEMultipart('related')
+#                     msg['Subject'] = email_subject
+#                     msg['From'] = from_email
+#                     msg['To'] = to_email
+
+#                     # Customize the email body with the colleague's name and tracking link
+#                     body = email_template.replace("{{recipient_name}}", colleague.name)
+#                     body = body.replace("{{action_link}}", tracking_link)
+#                     body = body.replace("{{action_name}}", action_name)
+#                     body = body.replace("{{email_subject}}", email_subject)
+
+#                     html_content = f"""
+#                     <html>
+#                         <body>
+#                             {body}
+#                         </body>
+#                     </html>
+#                     """
+#                     msg.attach(MIMEText(html_content, 'html'))
+
+#                     try:
+#                         server.send_message(msg)
+#                         print(f"Email sent to {colleague.email}")
+                        
+#                         # Log the sent email details
+#                         update_email_log(colleague)
+
+#                     except Exception as e:
+#                         print(f"Failed to send email to {colleague.email}: {str(e)}")
+
+#                 # Delay between batches to prevent overloading the CPU
+#                 time.sleep(delay)
+
+#                 # Log system usage and perform garbage collection
+#                 cpu_usage, memory_usage = log_system_usage()
+#                 if memory_usage > 80:  # If memory usage exceeds 80%, trigger garbage collection
+#                     print("High memory usage, performing garbage collection.")
+#                     gc.collect()
+
+#     except Exception as e:
+#         print(f"Error in connecting or sending emails: {str(e)}")
+
+# # Email sending route
+# @app.route('/send_email', methods=['GET', 'POST'])
+# def send_email():
+#     global emailed_candidates
+#     emailed_candidates = []
+
+#     templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
+
+#     # Define the range of colleagues for each group based on your specified ranges
+#     group_ranges = [
+#         (1, 8),    # Group 1 (First 400 colleagues)
+#         (8, 14),  # Group 2 (Next 388 colleagues)
+#         (14, 18),  # Group 3 (Next 14 colleagues)
+#         (18, 20),  # Group 4 (Next 184 colleagues)
+#         (20, 21)  # Group 5 (Remaining 14 colleagues)
+#     ]
+
+#     # Department configuration
+#     department_config = {
+#         'HR': {
+#             'email': os.getenv('HR_EMAIL'),
+#             'password': os.getenv('HR_PASSWORD'),
+#             'template': 'hr_email_template.html',
+#             'subject': "Update Your Payroll Information for Q4",
+#             'action_name': "Update Payroll Information"
+#         },
+#         'Leadership': {
+#             'email': os.getenv('LEADERSHIP_EMAIL'),
+#             'password': os.getenv('LEADERSHIP_PASSWORD'),
+#             'template': 'leadership_template.html',
+#             'subject': "Strategic Plan Review for Q4 - Action Required",
+#             'action_name': "Review Strategic Plan"
+#         },
+#         'Developer': {
+#             'email': os.getenv('DEVELOPER_EMAIL'),
+#             'password': os.getenv('DEVELOPER_PASSWORD'),
+#             'template': 'developer_template.html',
+#             'subject': "Security Patch Deployment for Development Tools",
+#             'action_name': "Download Security Patch"
+#         },
+#         'Account': {
+#             'email': os.getenv('ACCOUNT_EMAIL'),
+#             'password': os.getenv('ACCOUNT_PASSWORD'),
+#             'template': 'accounts_email_template.html',
+#             'subject': "System Update for new Compliance Standards",
+#             'action_name': "Update Credential"
+#         }
+#     }
+
+#     try:
+#         # Send emails for each group
+#         send_group_email(group_ranges[0][0], group_ranges[0][1], department_config['Developer'], templates_dir)
+#         send_group_email(group_ranges[1][0], group_ranges[1][1], department_config['Developer'], templates_dir)
+#         send_group_email(group_ranges[2][0], group_ranges[2][1], department_config['HR'], templates_dir)
+#         send_group_email(group_ranges[3][0], group_ranges[3][1], department_config['Account'], templates_dir)
+#         send_group_email(group_ranges[4][0], group_ranges[4][1], department_config['Leadership'], templates_dir)
+
+#         return jsonify({
+#             'message': 'Emails sent to colleagues.',
+#             'emailed_candidates': emailed_candidates
+#         }), 200
+
+#     except Exception as e:
+#         return jsonify({'message': f'Error sending emails: {str(e)}'}), 500
+
 
 
 # def update_email_log(colleague):

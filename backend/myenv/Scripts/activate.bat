@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=B:\Office\DPO Dashboard\RIA-APP-master\backend\myenv
+set VIRTUAL_ENV=D:\Anurag\Office\DPO Dashboard\Email Phising\Trial-Ria-App\backend\myenv
 
 if not defined PROMPT set PROMPT=$P$G
 
