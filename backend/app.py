@@ -3011,52 +3011,57 @@ common_training_link = "https://trial-ria-app.vercel.app/phishing_test/common_tr
 
 @app.route('/send_email', methods=['POST'])
 def send_email():
-    try:
-        # SMTP connection setup
-        with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
-            server.starttls()
-            server.login(os.getenv('DEVELOPER_EMAIL'), os.getenv('DEVELOPER_PASSWORD'))  # Adjust based on department
+    def generate():
+        try:
+            # SMTP connection setup
+            with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
+                server.starttls()
+                server.login(os.getenv('DEVELOPER_EMAIL'), os.getenv('DEVELOPER_PASSWORD'))  # Adjust for department
 
-            # Fetch emails from the database for a specific group
-            for colleague in Colleagues.query.filter(Colleagues.id >= 1, Colleagues.id <= 400):  # Adjust range for each group
-                to_email = colleague.email
-                config = department_config['Developer']  # Adjust based on group
-                msg = MIMEMultipart('related')
-                msg['Subject'] = config['subject']
-                msg['From'] = config['email']
-                msg['To'] = to_email
+                # Iterate over colleagues (one by one)
+                for colleague in Colleagues.query.filter(Colleagues.id >= 1, Colleagues.id <= 400):  # Adjust group
+                    to_email = colleague.email
+                    config = department_config['Developer']  # Adjust based on group
+                    msg = MIMEMultipart('related')
+                    msg['Subject'] = config['subject']
+                    msg['From'] = config['email']
+                    msg['To'] = to_email
 
-                # Prepare the email body
-                with open(os.path.join('templates', config['template'])) as f:
-                    email_template = f.read()
+                    # Prepare the email body
+                    with open(os.path.join('templates', config['template'])) as f:
+                        email_template = f.read()
 
-                body = email_template.replace("{{recipient_name}}", colleague.name)
-                body = body.replace("{{action_link}}", common_training_link)
-                body = body.replace("{{action_name}}", config['action_name'])
-                body = body.replace("{{email_subject}}", config['subject'])
+                    body = email_template.replace("{{recipient_name}}", colleague.name)
+                    body = body.replace("{{action_link}}", common_training_link)
+                    body = body.replace("{{action_name}}", config['action_name'])
+                    body = body.replace("{{email_subject}}", config['subject'])
 
-                html_content = f"<html><body>{body}</body></html>"
-                msg.attach(MIMEText(html_content, 'html'))
+                    html_content = f"<html><body>{body}</body></html>"
+                    msg.attach(MIMEText(html_content, 'html'))
 
-                try:
-                    # Send the email
-                    server.send_message(msg)
-                    print(f"Email sent to {colleague.email}")
+                    try:
+                        # Send the email
+                        server.send_message(msg)
+                        print(f"Email sent to {colleague.email}")
 
-                    # Log the email in the database or a file
-                    update_email_log(colleague)
+                        # Log the email
+                        update_email_log(colleague)
 
-                    # Respond after each email is sent
-                    time.sleep(1)  # Small delay between emails to prevent overloading
-                    return jsonify({'message': f"Email sent to {colleague.email}", 'status': 'success'}), 200
+                        # Yield the response after sending each email
+                        yield f"Email sent to {colleague.email}<br>"
 
-                except Exception as e:
-                    print(f"Failed to send email to {colleague.email}: {str(e)}")
-                    return jsonify({'message': f"Failed to send email to {colleague.email}: {str(e)}", 'status': 'error'}), 500
+                        # Optional: delay to avoid too rapid sending
+                        time.sleep(1)  # Small delay between emails
 
-    except Exception as e:
-        return jsonify({'message': f"Error: {str(e)}", 'status': 'error'}), 500
+                    except Exception as e:
+                        print(f"Failed to send email to {colleague.email}: {str(e)}")
+                        yield f"Failed to send email to {colleague.email}: {str(e)}<br>"
 
+        except Exception as e:
+            yield f"Error: {str(e)}<br>"
+
+    # Return a streaming response to the client
+    return Response(generate(), content_type='text/html')
 
 
 def dynamic_delay():
