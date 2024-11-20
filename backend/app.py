@@ -3009,11 +3009,13 @@ common_training_link = "https://trial-ria-app.vercel.app/phishing_test/common_tr
 
 
 
-@app.route('/send_email', methods=['GET', 'POST'])
 def send_email():
     """API to trigger email sending process."""
     try:
-        # Process each group (revised to fetch one by one)
+        # Initialize a list to track emails sent (optional for logging)
+        sent_emails = []
+        
+        # Process each group of emails one by one
         for group in groups:
             config = department_config[group['config']]
             print(f"Processing group: {group['config']}")
@@ -3027,12 +3029,11 @@ def send_email():
                 server.starttls()
                 server.login(config['email'], config['password'])
 
-                # Process emails one by one by iterating over the IDs directly
-                for colleague_id in range(group['start'], group['end'] + 1):
-                    # Query one email at a time from the database based on colleague_id
-                    colleague = Colleagues.query.filter_by(id=colleague_id).first()
+                # Process emails one by one (No batch, each email gets sent and responded to immediately)
+                for colleague_id in range(group['start'], group['end']):
+                    colleague = Colleagues.query.get(colleague_id)
 
-                    if colleague:
+                    if colleague:  # If a valid colleague exists
                         to_email = colleague.email
                         msg = MIMEMultipart('related')
                         msg['Subject'] = config['subject']
@@ -3060,22 +3061,22 @@ def send_email():
 
                             # Log email sent (store in database or a file)
                             update_email_log(colleague)
+                            sent_emails.append({
+                                'name': colleague.name,
+                                'email': colleague.email,
+                                'designation': colleague.designation
+                            })
+
+                            # Respond immediately after sending an email
+                            # You can break after the first email or let it continue as needed
+                            return jsonify({'message': f'Email sent to {colleague.email}', 'status': 'success'}), 200
 
                         except Exception as e:
                             print(f"Failed to send email to {colleague.email}: {str(e)}")
+                            return jsonify({'message': f'Failed to send email to {colleague.email}', 'status': 'error'}), 500
 
-                        # Delay between emails to avoid overloading
-                        time.sleep(dynamic_delay())
-
-                        # Clean up after each email
-                        del colleague
-                        gc.collect()
-
-                # After sending all emails for this group, clean up the email template
-                del email_template
-                gc.collect()
-
-            time.sleep(10)  # Group delay
+                    # Optional delay between emails (adjust as needed)
+                    time.sleep(dynamic_delay())
 
         return jsonify({'message': 'Emails have been sent successfully.', 'status': 'success'}), 200
 
