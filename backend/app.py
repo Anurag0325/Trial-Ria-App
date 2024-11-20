@@ -2922,11 +2922,98 @@ templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
 common_training_link = "https://trial-ria-app.vercel.app/phishing_test/common_training_link"  # Shared link
 
 
+# @app.route('/send_email', methods=['GET', 'POST'])
+# def send_email():
+#     """API to trigger email sending process."""
+#     try:
+#         # Process each group
+#         for group in groups:
+#             config = department_config[group['config']]
+#             print(f"Processing group: {group['config']}")
+
+#             # Load the email template once per group
+#             with open(os.path.join(templates_dir, config['template'])) as f:
+#                 email_template = f.read()
+
+#             # SMTP connection setup
+#             with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
+#                 server.starttls()
+#                 server.login(config['email'], config['password'])
+
+#                 # Process emails in batches
+#                 for i in range(group['start'], group['end'], 5):  # Batch size = 5
+#                     # Query a batch of emails
+#                     batch = Colleagues.query.filter(
+#                         Colleagues.id >= i + 1,
+#                         Colleagues.id < i + 6  # 5 emails per batch
+#                     ).with_entities(Colleagues.id, Colleagues.name, Colleagues.email, Colleagues.designation).yield_per(5)
+
+#                     if not batch:
+#                         break  # No more records in the group
+
+#                     for colleague in batch:
+#                         to_email = colleague.email
+#                         msg = MIMEMultipart('related')
+#                         msg['Subject'] = config['subject']
+#                         msg['From'] = config['email']
+#                         msg['To'] = to_email
+
+#                         # Replace placeholders in the email template
+#                         body = email_template.replace(
+#                             "{{recipient_name}}", colleague.name)
+#                         body = body.replace("{{action_link}}", common_training_link)
+#                         body = body.replace("{{action_name}}", config['action_name'])
+#                         body = body.replace("{{email_subject}}", config['subject'])
+
+#                         html_content = f"""
+#                         <html>
+#                             <body>
+#                                 {body}
+#                             </body>
+#                         </html>
+#                         """
+#                         msg.attach(MIMEText(html_content, 'html'))
+
+#                         try:
+#                             server.send_message(msg)
+#                             print(f"Email sent to {colleague.email}")
+
+#                             # Log email sent (store in database or a file)
+#                             update_email_log(colleague)
+#                             emailed_candidates.append({
+#                                 'name': colleague.name,
+#                                 'email': colleague.email,
+#                                 'designation': colleague.designation
+#                             })
+
+#                         except Exception as e:
+#                             print(f"Failed to send email to {colleague.email}: {str(e)}")
+
+#                         # Delay between emails
+#                         time.sleep(dynamic_delay())
+
+#                     # Clean up batch from memory
+#                     del batch
+#                     gc.collect()
+#                     time.sleep(15)  # Batch delay
+
+#             # Clean up group from memory
+#             del email_template
+#             gc.collect()
+#             time.sleep(10)  # Group delay
+
+#         return jsonify({'message': 'Emails have been sent successfully.', 'status': 'success'}), 200
+
+#     except Exception as e:
+#         return jsonify({'message': f'Error: {str(e)}', 'status': 'error'}), 500
+
+
+
 @app.route('/send_email', methods=['GET', 'POST'])
 def send_email():
     """API to trigger email sending process."""
     try:
-        # Process each group
+        # Process each group (revised to fetch one by one)
         for group in groups:
             config = department_config[group['config']]
             print(f"Processing group: {group['config']}")
@@ -2940,18 +3027,12 @@ def send_email():
                 server.starttls()
                 server.login(config['email'], config['password'])
 
-                # Process emails in batches
-                for i in range(group['start'], group['end'], 5):  # Batch size = 5
-                    # Query a batch of emails
-                    batch = Colleagues.query.filter(
-                        Colleagues.id >= i + 1,
-                        Colleagues.id < i + 6  # 5 emails per batch
-                    ).with_entities(Colleagues.id, Colleagues.name, Colleagues.email, Colleagues.designation).yield_per(5)
+                # Process emails one by one by iterating over the IDs directly
+                for colleague_id in range(group['start'], group['end'] + 1):
+                    # Query one email at a time from the database based on colleague_id
+                    colleague = Colleagues.query.filter_by(id=colleague_id).first()
 
-                    if not batch:
-                        break  # No more records in the group
-
-                    for colleague in batch:
+                    if colleague:
                         to_email = colleague.email
                         msg = MIMEMultipart('related')
                         msg['Subject'] = config['subject']
@@ -2959,8 +3040,7 @@ def send_email():
                         msg['To'] = to_email
 
                         # Replace placeholders in the email template
-                        body = email_template.replace(
-                            "{{recipient_name}}", colleague.name)
+                        body = email_template.replace("{{recipient_name}}", colleague.name)
                         body = body.replace("{{action_link}}", common_training_link)
                         body = body.replace("{{action_name}}", config['action_name'])
                         body = body.replace("{{email_subject}}", config['subject'])
@@ -2980,32 +3060,28 @@ def send_email():
 
                             # Log email sent (store in database or a file)
                             update_email_log(colleague)
-                            emailed_candidates.append({
-                                'name': colleague.name,
-                                'email': colleague.email,
-                                'designation': colleague.designation
-                            })
 
                         except Exception as e:
                             print(f"Failed to send email to {colleague.email}: {str(e)}")
 
-                        # Delay between emails
+                        # Delay between emails to avoid overloading
                         time.sleep(dynamic_delay())
 
-                    # Clean up batch from memory
-                    del batch
-                    gc.collect()
-                    time.sleep(15)  # Batch delay
+                        # Clean up after each email
+                        del colleague
+                        gc.collect()
 
-            # Clean up group from memory
-            del email_template
-            gc.collect()
+                # After sending all emails for this group, clean up the email template
+                del email_template
+                gc.collect()
+
             time.sleep(10)  # Group delay
 
         return jsonify({'message': 'Emails have been sent successfully.', 'status': 'success'}), 200
 
     except Exception as e:
         return jsonify({'message': f'Error: {str(e)}', 'status': 'error'}), 500
+
 
 
 def dynamic_delay():
