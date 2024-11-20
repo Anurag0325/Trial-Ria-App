@@ -2879,20 +2879,6 @@ emailed_candidates = []
 
 ### New code
 
-import os
-import time
-import gc
-import psutil
-import smtplib
-from flask import Flask, jsonify
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from sqlalchemy.orm import load_only
-from datetime import datetime
-from models import Colleagues  # Assuming this imports your SQLAlchemy model
-
-app = Flask(__name__)
-
 groups = [
     {'start': 0, 'end': 400, 'config': 'Developer'},
     {'start': 400, 'end': 788, 'config': 'Developer'},
