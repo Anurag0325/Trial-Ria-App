@@ -3009,79 +3009,53 @@ common_training_link = "https://trial-ria-app.vercel.app/phishing_test/common_tr
 
 
 
+@app.route('/send_email', methods=['POST'])
 def send_email():
-    """API to trigger email sending process."""
     try:
-        # Initialize a list to track emails sent (optional for logging)
-        sent_emails = []
-        
-        # Process each group of emails one by one
-        for group in groups:
-            config = department_config[group['config']]
-            print(f"Processing group: {group['config']}")
+        # SMTP connection setup
+        with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
+            server.starttls()
+            server.login(os.getenv('DEVELOPER_EMAIL'), os.getenv('DEVELOPER_PASSWORD'))  # Adjust based on department
 
-            # Load the email template once per group
-            with open(os.path.join(templates_dir, config['template'])) as f:
-                email_template = f.read()
+            # Fetch emails from the database for a specific group
+            for colleague in Colleagues.query.filter(Colleagues.id >= 1, Colleagues.id <= 400):  # Adjust range for each group
+                to_email = colleague.email
+                config = department_config['Developer']  # Adjust based on group
+                msg = MIMEMultipart('related')
+                msg['Subject'] = config['subject']
+                msg['From'] = config['email']
+                msg['To'] = to_email
 
-            # SMTP connection setup
-            with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
-                server.starttls()
-                server.login(config['email'], config['password'])
+                # Prepare the email body
+                with open(os.path.join('templates', config['template'])) as f:
+                    email_template = f.read()
 
-                # Process emails one by one (No batch, each email gets sent and responded to immediately)
-                for colleague_id in range(group['start'], group['end']):
-                    colleague = Colleagues.query.get(colleague_id)
+                body = email_template.replace("{{recipient_name}}", colleague.name)
+                body = body.replace("{{action_link}}", common_training_link)
+                body = body.replace("{{action_name}}", config['action_name'])
+                body = body.replace("{{email_subject}}", config['subject'])
 
-                    if colleague:  # If a valid colleague exists
-                        to_email = colleague.email
-                        msg = MIMEMultipart('related')
-                        msg['Subject'] = config['subject']
-                        msg['From'] = config['email']
-                        msg['To'] = to_email
+                html_content = f"<html><body>{body}</body></html>"
+                msg.attach(MIMEText(html_content, 'html'))
 
-                        # Replace placeholders in the email template
-                        body = email_template.replace("{{recipient_name}}", colleague.name)
-                        body = body.replace("{{action_link}}", common_training_link)
-                        body = body.replace("{{action_name}}", config['action_name'])
-                        body = body.replace("{{email_subject}}", config['subject'])
+                try:
+                    # Send the email
+                    server.send_message(msg)
+                    print(f"Email sent to {colleague.email}")
 
-                        html_content = f"""
-                        <html>
-                            <body>
-                                {body}
-                            </body>
-                        </html>
-                        """
-                        msg.attach(MIMEText(html_content, 'html'))
+                    # Log the email in the database or a file
+                    update_email_log(colleague)
 
-                        try:
-                            server.send_message(msg)
-                            print(f"Email sent to {colleague.email}")
+                    # Respond after each email is sent
+                    time.sleep(1)  # Small delay between emails to prevent overloading
+                    return jsonify({'message': f"Email sent to {colleague.email}", 'status': 'success'}), 200
 
-                            # Log email sent (store in database or a file)
-                            update_email_log(colleague)
-                            sent_emails.append({
-                                'name': colleague.name,
-                                'email': colleague.email,
-                                'designation': colleague.designation
-                            })
-
-                            # Respond immediately after sending an email
-                            # You can break after the first email or let it continue as needed
-                            return jsonify({'message': f'Email sent to {colleague.email}', 'status': 'success'}), 200
-
-                        except Exception as e:
-                            print(f"Failed to send email to {colleague.email}: {str(e)}")
-                            return jsonify({'message': f'Failed to send email to {colleague.email}', 'status': 'error'}), 500
-
-                    # Optional delay between emails (adjust as needed)
-                    time.sleep(dynamic_delay())
-
-        return jsonify({'message': 'Emails have been sent successfully.', 'status': 'success'}), 200
+                except Exception as e:
+                    print(f"Failed to send email to {colleague.email}: {str(e)}")
+                    return jsonify({'message': f"Failed to send email to {colleague.email}: {str(e)}", 'status': 'error'}), 500
 
     except Exception as e:
-        return jsonify({'message': f'Error: {str(e)}', 'status': 'error'}), 500
+        return jsonify({'message': f"Error: {str(e)}", 'status': 'error'}), 500
 
 
 
