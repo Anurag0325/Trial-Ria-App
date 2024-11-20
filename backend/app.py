@@ -1,6 +1,6 @@
 import psycopg2
 import csv
-from flask import Flask, jsonify, request, send_file, Response
+from flask import Flask, jsonify, request, send_file
 from models import *
 from flask_cors import CORS
 import os
@@ -3011,57 +3011,70 @@ common_training_link = "https://trial-ria-app.vercel.app/phishing_test/common_tr
 
 @app.route('/send_email', methods=['POST'])
 def send_email():
-    def generate():
-        try:
-            # SMTP connection setup
-            with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
-                server.starttls()
-                server.login(os.getenv('DEVELOPER_EMAIL'), os.getenv('DEVELOPER_PASSWORD'))  # Adjust for department
+    try:
+        emails_sent = []  # Keep track of sent emails
+        failed_emails = []  # Track failed emails for debugging
 
-                # Iterate over colleagues (one by one)
-                for colleague in Colleagues.query.filter(Colleagues.id >= 1, Colleagues.id <= 400):  # Adjust group
-                    to_email = colleague.email
-                    config = department_config['Developer']  # Adjust based on group
-                    msg = MIMEMultipart('related')
-                    msg['Subject'] = config['subject']
-                    msg['From'] = config['email']
-                    msg['To'] = to_email
+        # SMTP connection setup
+        with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
+            server.starttls()
+            server.login(os.getenv('DEVELOPER_EMAIL'), os.getenv('DEVELOPER_PASSWORD'))  # Adjust based on department
 
-                    # Prepare the email body
-                    with open(os.path.join('templates', config['template'])) as f:
-                        email_template = f.read()
+            # Fetch emails from the database for a specific group
+            for colleague in Colleagues.query.filter(Colleagues.id >= 1, Colleagues.id <= 400):  # Adjust range for each group
+                to_email = colleague.email
+                config = department_config['Developer']  # Adjust based on group
+                msg = MIMEMultipart('related')
+                msg['Subject'] = config['subject']
+                msg['From'] = config['email']
+                msg['To'] = to_email
 
-                    body = email_template.replace("{{recipient_name}}", colleague.name)
-                    body = body.replace("{{action_link}}", common_training_link)
-                    body = body.replace("{{action_name}}", config['action_name'])
-                    body = body.replace("{{email_subject}}", config['subject'])
+                # Prepare the email body
+                with open(os.path.join('templates', config['template'])) as f:
+                    email_template = f.read()
 
-                    html_content = f"<html><body>{body}</body></html>"
-                    msg.attach(MIMEText(html_content, 'html'))
+                body = email_template.replace("{{recipient_name}}", colleague.name)
+                body = body.replace("{{action_link}}", common_training_link)
+                body = body.replace("{{action_name}}", config['action_name'])
+                body = body.replace("{{email_subject}}", config['subject'])
 
-                    try:
-                        # Send the email
-                        server.send_message(msg)
-                        print(f"Email sent to {colleague.email}")
+                html_content = f"<html><body>{body}</body></html>"
+                msg.attach(MIMEText(html_content, 'html'))
 
-                        # Log the email
-                        update_email_log(colleague)
+                try:
+                    # Send the email
+                    server.send_message(msg)
+                    emails_sent.append(colleague.email)  # Track successful email
 
-                        # Yield the response after sending each email
-                        yield f"Email sent to {colleague.email}<br>"
+                    # Log the email in the database
+                    update_email_log(colleague)
 
-                        # Optional: delay to avoid too rapid sending
-                        time.sleep(1)  # Small delay between emails
+                    # Log progress with a print statement (to avoid Gunicorn timeout)
+                    print(f"Email successfully sent to: {colleague.email}")
 
-                    except Exception as e:
-                        print(f"Failed to send email to {colleague.email}: {str(e)}")
-                        yield f"Failed to send email to {colleague.email}: {str(e)}<br>"
+                    # Optional: delay to avoid too rapid sending
+                    time.sleep(1)  # Small delay between emails
 
-        except Exception as e:
-            yield f"Error: {str(e)}<br>"
+                except Exception as e:
+                    print(f"Failed to send email to {colleague.email}: {str(e)}")
+                    failed_emails.append(colleague.email)  # Track failed email
 
-    # Return a streaming response to the client
-    return Response(generate(), content_type='text/html')
+        # After processing all emails, print a completion log
+        print(f"All emails processed. Sent: {len(emails_sent)}, Failed: {len(failed_emails)}")
+
+        return jsonify({
+            'message': 'Emails sent successfully.',
+            'status': 'success',
+            'emails_sent': emails_sent,
+            'failed_emails': failed_emails
+        }), 200
+
+    except Exception as e:
+        print(f"Error occurred: {str(e)}")
+        return jsonify({'message': f"Error: {str(e)}", 'status': 'error'}), 500
+
+
+
 
 
 def dynamic_delay():
