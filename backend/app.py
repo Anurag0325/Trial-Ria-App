@@ -2979,15 +2979,12 @@ def send_email():
                             print(f"Email sent to {colleague.email}")
 
                             # Log email sent (store in database or a file)
-                            log_entry = {
+                            update_email_log(colleague)
+                            emailed_candidates.append({
                                 'name': colleague.name,
                                 'email': colleague.email,
-                                'designation': colleague.designation,
-                                'timestamp': datetime.utcnow()
-                            }
-                            with open('email_logs.json', 'a') as log_file:
-                                json.dump(log_entry, log_file)
-                                log_file.write('\n')
+                                'designation': colleague.designation
+                            })
 
                         except Exception as e:
                             print(f"Failed to send email to {colleague.email}: {str(e)}")
