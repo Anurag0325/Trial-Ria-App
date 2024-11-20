@@ -200,7 +200,7 @@ def insert_dummy_data():
         {"name": "OPS", "email": "ops@kvqaindia.com",
             "department": "OPS", "designation": "OPS"},
         {"name": "Himanshi", "email": "himanshichaudhary8377@gmail.com",
-            "department": "Data Analyzer", "designation" : "Data Analyst"}
+            "department": "Data Analyzer", "designation" : "Data Analyst"},
 
         #     {'name': 'Name_1', 'email': '0-mail.com',
         #         'department': 'Department_1', 'designation': 'Designation_1'},
