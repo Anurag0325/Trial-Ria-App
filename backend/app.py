@@ -81,8 +81,8 @@ def insert_dummy_data():
             "department": "Developer", "designation": "Developer"},
         {"name": "Sethi", "email": "tech@kvqaindia.com",
             "department": "Developer", "designation": "Frontend Developer"},
-        # {"name": "Ritika Gupta", "email": "guptaritika705@gmail.com",
-        #     "department": "Leadership", "designation": "CFO"},
+        {"name": "Ritika Gupta", "email": "akanuragkumar4@gmail.com",
+            "department": "Leadership", "designation": "CFO"},
         # {"name": "Ritika GMAIL", "email": "ritzgupta998@gmail.com",
         #     "department": "Leadership", "designation": "CFO"},
         # {"name": "Ritika Fashion", "email": "ritzfashiononline@gmail.com",
@@ -133,42 +133,42 @@ def insert_dummy_data():
         #     "department": "Developer", "designation": "Consultant"},
         # {"name": "Eva Adams", "email": "eva.adams@bing.com", "designation": "HR"},
 
-        # {"name": "Ritika", "email": "training@kvqaindia.com",
-        #     "department": "Leadership", "designation": "CTO"},
-        # {"name": "Lav Kaushik", "email": "lav@kvqaindia.com",
-        #     "department": "Leadership", "designation": "CEO"},
-        # {"name": "Varun", "email": "2345varun@gmail.com",
-        #     "department": "Leadership", "designation": "CEO"},
-        # {"name": "TRG", "email": "trg@kvqaindia.com",
-        #     "department": "Training", "designation": "Training Coordinator"},
-        # {"name": "sales", "email": "sales1@kvqaindia.com",
-        #     "department": "Sales", "designation": "Sales Head"},
-        # {"name": "NoidaISO", "email": "noidaiso22@gmail.com",
-        #     "department": "Noida", "designation": "Noida"},
-        # {"name": "Ruby", "email": "ruby@kvqaindia.com",
-        #     "department": "IT", "designation": "IT Operations"},
-        # {"name": "Babli", "email": "babli12@kvqaindia.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "Shikha", "email": "shikha12@kvqaindia.com",
-        #     "department": "Operations", "designation": "Opeartion Head"},
-        # {"name": "Kanchan", "email": "kanchan@kvqaindia.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "Info", "email": "info@kvqaindia.com",
-        #     "department": "Operations", "designation": "Information Sharing"},
-        # {"name": "Vaishali", "email": "vaishali@kvqaindia.com",
-        #     "department": "Certificate", "designation": "Certificate Head"},
-        # {"name": "Neha", "email": "neha12@kvqaindia.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "DHR", "email": "dhr@kvqaindia.com",
-        #     "department": "DHR", "designation": "DHR"},
-        # {"name": "Delhi", "email": "delhi@kvqaindia.com",
-        #     "department": "Delhi", "designation": "Delhi"},
-        # {"name": "Arun", "email": "arun.kvqa@gmail.com",
-        #     "department": "Leadership", "designation": "CFO"},
-        # {"name": "OPS", "email": "ops@kvqaindia.com",
-        #     "department": "OPS", "designation": "OPS"},
-        # {"name": "Himanshi", "email": "himanshichaudhary8377@gmail.com",
-        #     "department": "Data Analyzer", "designation" : "Data Analyst"}
+        {"name": "Ritika", "email": "tosopeg490@cpaurl.com",
+            "department": "Leadership", "designation": "CTO"},
+        {"name": "Lav Kaushik", "email": "dojel51420@exoular.com",
+            "department": "Leadership", "designation": "CEO"},
+        {"name": "Varun", "email": "wenayir754@gitated.com",
+            "department": "Leadership", "designation": "CEO"},
+        {"name": "TRG", "email": "lapec18115@cpaurl.com",
+            "department": "Training", "designation": "Training Coordinator"},
+        {"name": "sales", "email": "tisopa4652@cashbn.com",
+            "department": "Sales", "designation": "Sales Head"},
+        {"name": "NoidaISO", "email": "cajoki9143@cashbn.com",
+            "department": "Noida", "designation": "Noida"},
+        {"name": "Ruby", "email": "peway67109@gitated.com",
+            "department": "IT", "designation": "IT Operations"},
+        {"name": "Babli", "email": "libadef322@cpaurl.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "Shikha", "email": "xepesic916@gitated.com",
+            "department": "Operations", "designation": "Opeartion Head"},
+        {"name": "Kanchan", "email": "gociy10751@cashbn.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "Info", "email": "livamex757@exoular.com",
+            "department": "Operations", "designation": "Information Sharing"},
+        {"name": "Vaishali", "email": "xovijoh828@gitated.com",
+            "department": "Certificate", "designation": "Certificate Head"},
+        {"name": "Neha", "email": "xexeke6928@exoular.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "DHR", "email": "gimejob509@gitated.com",
+            "department": "DHR", "designation": "DHR"},
+        {"name": "Delhi", "email": "goxasa1124@exoular.com",
+            "department": "Delhi", "designation": "Delhi"},
+        {"name": "Arun", "email": "lihiy72683@cpaurl.com",
+            "department": "Leadership", "designation": "CFO"},
+        {"name": "OPS", "email": "ops@kvqaindia.com",
+            "department": "OPS", "designation": "OPS"},
+        {"name": "Himanshi", "email": "himanshichaudhary8377@gmail.com",
+            "department": "Data Analyzer", "designation" : "Data Analyst"}
 
         #     {'name': 'Name_1', 'email': '0-mail.com',
         #         'department': 'Department_1', 'designation': 'Designation_1'},
@@ -2718,6 +2718,181 @@ emailed_candidates = []
 #######
 
 
+# groups = [
+#     {'start': 0, 'end': 400, 'config': 'Developer'},
+#     {'start': 400, 'end': 788, 'config': 'Developer'},
+#     {'start': 788, 'end': 802, 'config': 'Leadership'},
+#     {'start': 802, 'end': 986, 'config': 'HR'},
+#     {'start': 986, 'end': 1000, 'config': 'Account'}
+# ]
+
+# department_config = {
+#     'HR': {
+#         'email': os.getenv('HR_EMAIL'),
+#         'password': os.getenv('HR_PASSWORD'),
+#         'template': 'hr_email_template.html',
+#         'subject': "Update Your Payroll Information for Q4",
+#         'action_name': "Update Payroll Information"
+#     },
+#     'Leadership': {
+#         'email': os.getenv('LEADERSHIP_EMAIL'),
+#         'password': os.getenv('LEADERSHIP_PASSWORD'),
+#         'template': 'leadership_template.html',
+#         'subject': "Strategic Plan Review for Q4 - Action Required",
+#         'action_name': "Review Strategic Plan"
+#     },
+#     'Developer': {
+#         'email': os.getenv('DEVELOPER_EMAIL'),
+#         'password': os.getenv('DEVELOPER_PASSWORD'),
+#         'template': 'developer_template.html',
+#         'subject': "Security Patch Deployment for Development Tools",
+#         'action_name': "Download Security Patch"
+#     },
+#     'Account': {
+#         'email': os.getenv('ACCOUNT_EMAIL'),
+#         'password': os.getenv('ACCOUNT_PASSWORD'),
+#         'template': 'accounts_email_template.html',
+#         'subject': "System Update for new Compliance Standards",
+#         'action_name': "Update Credential"
+#     }
+# }
+
+# templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
+
+
+# @app.route('/send_email', methods=['GET', 'POST'])
+# def send_email():
+#     """API to trigger email sending process."""
+#     global emailed_candidates
+#     emailed_candidates = []  # Reset the emailed candidates log
+
+#     try:
+#         # Call the function to send emails group by group
+#         send_emails_by_group(groups, department_config, templates_dir)
+
+#         return jsonify({'message': 'Emails are being sent successfully.', 'status': 'success'}), 200
+
+#     except Exception as e:
+#         return jsonify({'message': f'Error: {str(e)}', 'status': 'error'}), 500
+
+
+# def send_emails_by_group(groups, department_config, templates_dir):
+#     """Send emails group by group."""
+#     global emailed_candidates
+
+#     for group in groups:
+#         config = department_config[group['config']]
+#         print(f"Processing group: {group['config']}")
+
+#         # Load the template for the group
+#         with open(os.path.join(templates_dir, config['template'])) as f:
+#             email_template = f.read()
+
+#         send_emails_in_batches(
+#             start_idx=group['start'],
+#             end_idx=group['end'],
+#             config=config,
+#             templates_dir=templates_dir,
+#             email_template=email_template,
+#             batch_size=5,  # 5 emails per batch
+#             email_delay=2,  # 2 seconds between emails
+#             batch_delay=15  # 15 seconds between batches
+#         )
+
+#         # Clean up after finishing a group
+#         gc.collect()  # Release memory
+#         time.sleep(10)  # 10 seconds delay before the next group
+
+
+# def send_emails_in_batches(start_idx, end_idx, config, templates_dir, email_template, batch_size, email_delay, batch_delay):
+#     """Send emails in smaller batches with delays."""
+#     from_email = config['email']
+#     password = config['password']
+#     email_subject = config['subject']
+#     action_name = config['action_name']
+#     training_link = "https://trial-ria-app.vercel.app/phishing_test/common_training_link"  # Common link
+
+#     try:
+#         with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
+#             server.starttls()
+#             server.login(from_email, password)
+
+#             for i in range(start_idx, end_idx, batch_size):
+#                 # Query the batch
+#                 batch = Colleagues.query.filter(
+#                     Colleagues.id >= i + 1,
+#                     Colleagues.id < i + batch_size + 1
+#                 ).options(load_only(Colleagues.id, Colleagues.name, Colleagues.email, Colleagues.designation)).all()
+
+#                 if not batch:
+#                     break  # Stop if no more records
+
+#                 for colleague in batch:
+#                     to_email = colleague.email
+#                     msg = MIMEMultipart('related')
+#                     msg['Subject'] = email_subject
+#                     msg['From'] = from_email
+#                     msg['To'] = to_email
+
+#                     # Replace placeholders in the email template
+#                     body = email_template.replace(
+#                         "{{recipient_name}}", colleague.name)
+#                     body = body.replace("{{action_link}}", training_link)
+#                     body = body.replace("{{action_name}}", action_name)
+#                     body = body.replace("{{email_subject}}", email_subject)
+
+#                     html_content = f"""
+#                     <html>
+#                         <body>
+#                             {body}
+#                         </body>
+#                     </html>
+#                     """
+#                     msg.attach(MIMEText(html_content, 'html'))
+
+#                     try:
+#                         server.send_message(msg)
+#                         print(f"Email sent to {colleague.email}")
+
+#                         # Log email sent
+#                         update_email_log(colleague)
+#                         emailed_candidates.append({
+#                             'name': colleague.name,
+#                             'email': colleague.email,
+#                             'designation': colleague.designation
+#                         })
+
+#                     except Exception as e:
+#                         print(
+#                             f"Failed to send email to {colleague.email}: {str(e)}")
+
+#                     # Delay between emails
+#                     time.sleep(email_delay)
+
+#                 # Clean up after processing a batch
+#                 gc.collect()
+#                 time.sleep(batch_delay)
+
+#     except Exception as e:
+#         print(f"Error in sending emails: {str(e)}")
+
+
+### New code
+
+import os
+import time
+import gc
+import psutil
+import smtplib
+from flask import Flask, jsonify
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from sqlalchemy.orm import load_only
+from datetime import datetime
+from models import Colleagues  # Assuming this imports your SQLAlchemy model
+
+app = Flask(__name__)
+
 groups = [
     {'start': 0, 'end': 400, 'config': 'Developer'},
     {'start': 400, 'end': 788, 'config': 'Developer'},
@@ -2758,123 +2933,107 @@ department_config = {
 }
 
 templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
+common_training_link = "https://trial-ria-app.vercel.app/phishing_test/common_training_link"  # Shared link
 
 
 @app.route('/send_email', methods=['GET', 'POST'])
 def send_email():
     """API to trigger email sending process."""
-    global emailed_candidates
-    emailed_candidates = []  # Reset the emailed candidates log
-
     try:
-        # Call the function to send emails group by group
-        send_emails_by_group(groups, department_config, templates_dir)
+        # Process each group
+        for group in groups:
+            config = department_config[group['config']]
+            print(f"Processing group: {group['config']}")
 
-        return jsonify({'message': 'Emails are being sent successfully.', 'status': 'success'}), 200
+            # Load the email template once per group
+            with open(os.path.join(templates_dir, config['template'])) as f:
+                email_template = f.read()
+
+            # SMTP connection setup
+            with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
+                server.starttls()
+                server.login(config['email'], config['password'])
+
+                # Process emails in batches
+                for i in range(group['start'], group['end'], 5):  # Batch size = 5
+                    # Query a batch of emails
+                    batch = Colleagues.query.filter(
+                        Colleagues.id >= i + 1,
+                        Colleagues.id < i + 6  # 5 emails per batch
+                    ).with_entities(Colleagues.id, Colleagues.name, Colleagues.email, Colleagues.designation).yield_per(5)
+
+                    if not batch:
+                        break  # No more records in the group
+
+                    for colleague in batch:
+                        to_email = colleague.email
+                        msg = MIMEMultipart('related')
+                        msg['Subject'] = config['subject']
+                        msg['From'] = config['email']
+                        msg['To'] = to_email
+
+                        # Replace placeholders in the email template
+                        body = email_template.replace(
+                            "{{recipient_name}}", colleague.name)
+                        body = body.replace("{{action_link}}", common_training_link)
+                        body = body.replace("{{action_name}}", config['action_name'])
+                        body = body.replace("{{email_subject}}", config['subject'])
+
+                        html_content = f"""
+                        <html>
+                            <body>
+                                {body}
+                            </body>
+                        </html>
+                        """
+                        msg.attach(MIMEText(html_content, 'html'))
+
+                        try:
+                            server.send_message(msg)
+                            print(f"Email sent to {colleague.email}")
+
+                            # Log email sent (store in database or a file)
+                            log_entry = {
+                                'name': colleague.name,
+                                'email': colleague.email,
+                                'designation': colleague.designation,
+                                'timestamp': datetime.utcnow()
+                            }
+                            with open('email_logs.json', 'a') as log_file:
+                                json.dump(log_entry, log_file)
+                                log_file.write('\n')
+
+                        except Exception as e:
+                            print(f"Failed to send email to {colleague.email}: {str(e)}")
+
+                        # Delay between emails
+                        time.sleep(dynamic_delay())
+
+                    # Clean up batch from memory
+                    del batch
+                    gc.collect()
+                    time.sleep(15)  # Batch delay
+
+            # Clean up group from memory
+            del email_template
+            gc.collect()
+            time.sleep(10)  # Group delay
+
+        return jsonify({'message': 'Emails have been sent successfully.', 'status': 'success'}), 200
 
     except Exception as e:
         return jsonify({'message': f'Error: {str(e)}', 'status': 'error'}), 500
 
 
-def send_emails_by_group(groups, department_config, templates_dir):
-    """Send emails group by group."""
-    global emailed_candidates
-
-    for group in groups:
-        config = department_config[group['config']]
-        print(f"Processing group: {group['config']}")
-
-        # Load the template for the group
-        with open(os.path.join(templates_dir, config['template'])) as f:
-            email_template = f.read()
-
-        send_emails_in_batches(
-            start_idx=group['start'],
-            end_idx=group['end'],
-            config=config,
-            templates_dir=templates_dir,
-            email_template=email_template,
-            batch_size=5,  # 5 emails per batch
-            email_delay=2,  # 2 seconds between emails
-            batch_delay=15  # 15 seconds between batches
-        )
-
-        # Clean up after finishing a group
-        gc.collect()  # Release memory
-        time.sleep(10)  # 10 seconds delay before the next group
-
-
-def send_emails_in_batches(start_idx, end_idx, config, templates_dir, email_template, batch_size, email_delay, batch_delay):
-    """Send emails in smaller batches with delays."""
-    from_email = config['email']
-    password = config['password']
-    email_subject = config['subject']
-    action_name = config['action_name']
-    training_link = "https://trial-ria-app.vercel.app/phishing_test/common_training_link"  # Common link
-
-    try:
-        with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
-            server.starttls()
-            server.login(from_email, password)
-
-            for i in range(start_idx, end_idx, batch_size):
-                # Query the batch
-                batch = Colleagues.query.filter(
-                    Colleagues.id >= i + 1,
-                    Colleagues.id < i + batch_size + 1
-                ).options(load_only(Colleagues.id, Colleagues.name, Colleagues.email, Colleagues.designation)).all()
-
-                if not batch:
-                    break  # Stop if no more records
-
-                for colleague in batch:
-                    to_email = colleague.email
-                    msg = MIMEMultipart('related')
-                    msg['Subject'] = email_subject
-                    msg['From'] = from_email
-                    msg['To'] = to_email
-
-                    # Replace placeholders in the email template
-                    body = email_template.replace(
-                        "{{recipient_name}}", colleague.name)
-                    body = body.replace("{{action_link}}", training_link)
-                    body = body.replace("{{action_name}}", action_name)
-                    body = body.replace("{{email_subject}}", email_subject)
-
-                    html_content = f"""
-                    <html>
-                        <body>
-                            {body}
-                        </body>
-                    </html>
-                    """
-                    msg.attach(MIMEText(html_content, 'html'))
-
-                    try:
-                        server.send_message(msg)
-                        print(f"Email sent to {colleague.email}")
-
-                        # Log email sent
-                        update_email_log(colleague)
-                        emailed_candidates.append({
-                            'name': colleague.name,
-                            'email': colleague.email,
-                            'designation': colleague.designation
-                        })
-
-                    except Exception as e:
-                        print(
-                            f"Failed to send email to {colleague.email}: {str(e)}")
-
-                    # Delay between emails
-                    time.sleep(email_delay)
-
-                # Clean up after processing a batch
-                gc.collect()
-                time.sleep(batch_delay)
-
-    except Exception as e:
-        print(f"Error in sending emails: {str(e)}")
+def dynamic_delay():
+    """Calculate delay based on system resource usage."""
+    memory_usage = psutil.virtual_memory().percent
+    cpu_usage = psutil.cpu_percent(interval=0.1)
+    if memory_usage > 80 or cpu_usage > 80:
+        return 15  # Increase delay under high load
+    elif memory_usage < 50 and cpu_usage < 50:
+        return 10  # Decrease delay under low load
+    return 5  # Default delay
 
 
 # def send_group_email(group, config, templates_dir, batch_size=10, delay=10):
