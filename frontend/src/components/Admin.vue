@@ -25,7 +25,6 @@
                         <th>Colleague Name</th>
                         <th>Department</th>
                         <th>Link Clicked</th>
-                        <th>Training Completed</th>
                         <th>Link Clicked Date</th>
                     </tr>
                 </thead>
@@ -35,7 +34,6 @@
                         <td>{{ getColleagueName(report.colleague_id) }}</td>
                         <td>{{ getColleagueDepartment(report.colleague_id) }}</td>
                         <td>{{ report.clicked ? 'Yes' : 'No' }}</td>
-                        <td>{{ report.answered ? 'Yes' : 'No' }}</td>
                         <td>{{ formatDate(report.clicked_date) }}</td>
                     </tr>
                 </tbody>
