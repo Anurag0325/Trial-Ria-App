@@ -23,7 +23,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Colleague Name</th>
-                        <th>Deartment</th>
+                        <th>Department</th>
                         <th>Link Clicked</th>
                         <th>Training Completed</th>
                         <th>Link Clicked Date</th>
