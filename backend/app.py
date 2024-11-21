@@ -2983,7 +2983,8 @@ department_config = {
 }
 
 templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
-common_training_link = "https://trial-ria-app.vercel.app/phishing_test/common_training_link"  # Shared link
+# common_training_link = "https://trial-ria-app.vercel.app/phishing_test/common_training_link"
+common_training_link = "https://trial-ria-app.vercel.app/phishing_test/{colleague.id}"
 
 
 # @app.route('/send_email', methods=['GET', 'POST'])
