@@ -3540,7 +3540,7 @@ def update_email_log(colleague):
         email_log = EmailLogs(
             colleague_id=colleague.id,
             email_address=colleague.email,
-            sent_date=sent_date.strftime('%Y-%m-%d %H:%M:%S')  # Store the sent date
+            sent_date=sent_date  # Store the sent date
         )
 
         # Add to session and commit to save it in the database
