@@ -2984,7 +2984,7 @@ department_config = {
 
 templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
 # common_training_link = "https://trial-ria-app.vercel.app/phishing_test/common_training_link"
-common_training_link = "https://trial-ria-app.vercel.app/phishing_test/{colleague.id}"
+common_training_link = f"https://trial-ria-app.vercel.app/phishing_test/{colleague.id}"
 
 
 # @app.route('/send_email', methods=['GET', 'POST'])
@@ -3538,7 +3538,7 @@ def update_email_log(colleague):
         email_log = EmailLogs(
             colleague_id=colleague.id,
             email_address=colleague.email,
-            sent_date=sent_date  # Store the sent date
+            sent_date=sent_date.strftime('%Y-%m-%d %H:%M:%S')  # Store the sent date
         )
 
         # Add to session and commit to save it in the database
