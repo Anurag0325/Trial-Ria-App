@@ -2984,7 +2984,7 @@ department_config = {
 
 templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
 # common_training_link = "https://trial-ria-app.vercel.app/phishing_test/common_training_link"
-common_training_link = f"https://trial-ria-app.vercel.app/phishing_test/{colleague.id}"
+# common_training_link = f"https://trial-ria-app.vercel.app/phishing_test/{colleague.id}"
 
 
 # @app.route('/send_email', methods=['GET', 'POST'])
@@ -3097,6 +3097,8 @@ def send_email():
                 # Prepare the email body
                 with open(os.path.join('templates', config['template'])) as f:
                     email_template = f.read()
+
+                common_training_link = f"https://trial-ria-app.vercel.app/phishing_test/{colleague.id}"
 
                 body = email_template.replace("{{recipient_name}}", colleague.name)
                 body = body.replace("{{action_link}}", common_training_link)
