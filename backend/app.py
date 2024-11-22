@@ -168,6 +168,8 @@ def insert_dummy_data():
             "department": "Operations", "designation": "Senior Consultant - Admin"},
         {"name": "Suraj Kamble", "email": "suraj.kambale@riaadvisory.com",
             "department": "Developer", "designation": "Consultant"},
+         {"name": "IT guy", "email": "marwin.ibanez@riaadvisory.com",
+            "department": "Developer", "designation": "Consultant"},
         # {"name": "Eva Adams", "email": "eva.adams@bing.com", "designation": "HR"},
 
         # {"name": "Ritika", "email": "tosopeg490@cpaurl.com",
