@@ -1167,15 +1167,15 @@ def send_email():
         # SMTP connection setup
         with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
             server.starttls()
-            # server.login(os.getenv('DEVELOPER_EMAIL'), os.getenv('DEVELOPER_PASSWORD'))
-            #   # Adjust based on department
+            server.login(os.getenv('DEVELOPER_EMAIL'), os.getenv('DEVELOPER_PASSWORD'))
+              # Adjust based on department
 
-            server.login(os.getenv('ACCOUNT_EMAIL'), os.getenv('ACCOUNT_PASSWORD'))
+            # server.login(os.getenv('ACCOUNT_EMAIL'), os.getenv('ACCOUNT_PASSWORD'))
 
             # Fetch emails from the database for a specific group
             for colleague in Colleagues.query.filter(Colleagues.id >= 1, Colleagues.id <= 400):  # Adjust range for each group
                 to_email = colleague.email
-                config = department_config['Account']  # Adjust based on group
+                config = department_config['Developer']  # Adjust based on group
                 msg = MIMEMultipart('related')
                 msg['Subject'] = config['subject']
                 msg['From'] = config['email']
