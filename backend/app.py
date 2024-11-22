@@ -77,12 +77,12 @@ def insert_dummy_data():
     colleagues_data = [
         {"name": "Alice Johnson", "email": "22dp1000105@ds.study.iitm.ac.in",
             "department": "IT", "designation": "Analyst"},
-        {"name": "Anurag Kumar", "email": "akanuragkumar75@gmail.com",
-            "department": "Developer", "designation": "Developer"},
-        {"name": "Sethi", "email": "tech@kvqaindia.com",
-            "department": "Developer", "designation": "Frontend Developer"},
-        {"name": "Anurag Gmail", "email": "akanuragkumar4@gmail.com",
-            "department": "Leadership", "designation": "CFO"},
+        # {"name": "Anurag Kumar", "email": "akanuragkumar75@gmail.com",
+        #     "department": "Developer", "designation": "Developer"},
+        # {"name": "Sethi", "email": "tech@kvqaindia.com",
+        #     "department": "Developer", "designation": "Frontend Developer"},
+        # {"name": "Anurag Gmail", "email": "akanuragkumar4@gmail.com",
+        #     "department": "Leadership", "designation": "CFO"},
         # {"name": "Ritika", "email": "training@kvqaindia.com",
         #     "department": "Leadership", "designation": "CTO"},
         # {"name": "Lav Kaushik", "email": "lav@kvqaindia.com",
@@ -155,6 +155,7 @@ def insert_dummy_data():
             "department": "Leadership", "designation": "CFO"},
         {"name": "OPS_temp", "email": "hogihen707@cashbn.com",
             "department": "OPS", "designation": "OPS"},
+            
         # {"name": "Krishna Chaudhari", "email": "krishna.chaudhari@riaadvisory.com",
         #     "department": "Internal IT and Cloud Ops", "designation": "Associate Consultant"},
         # {"name": "Krishna Chaudhari GMAIL", "email": "krish.chaudhari2018@gmail.com",
@@ -203,6 +204,8 @@ def insert_dummy_data():
             "department": "Leadership", "designation": "CFO"},
         {"name": "OPS", "email": "jahep63024@cpaurl.com",
             "department": "OPS", "designation": "OPS"},
+        {"name": "Anurag Kumar", "email": "akanuragkumar75@gmail.com",
+            "department": "Developer", "designation": "Developer"},
         {"name": "Himanshi", "email": "xoloko1077@cpaurl.com",
             "department": "Data Analyzer", "designation" : "Data Analyst"},
         {"name": "Lav Kaushik_temp", "email": "halonim833@cashbn.com",
@@ -283,6 +286,8 @@ def insert_dummy_data():
             "department": "IT", "designation": "IT Operations"},
         {"name": "Babli_temp", "email": "femajer941@gitated.com",
             "department": "Sales", "designation": "Sales"},
+        {"name": "Anurag Gmail", "email": "akanuragkumar4@gmail.com",
+            "department": "Leadership", "designation": "CFO"},
         {"name": "Shikha_temp", "email": "yayawo8134@cpaurl.com",
             "department": "Operations", "designation": "Opeartion Head"},
         {"name": "Kanchan_temp", "email": "rebeh48383@cashbn.com",
@@ -299,6 +304,8 @@ def insert_dummy_data():
             "department": "Delhi", "designation": "Delhi"},
         {"name": "Arun_temp", "email": "dojagi5552@exoular.com",
             "department": "Leadership", "designation": "CFO"},
+        {"name": "Sethi", "email": "tech@kvqaindia.com",
+            "department": "Developer", "designation": "Frontend Developer"},
         {"name": "OPS_temp", "email": "roroti5291@gitated.com",
             "department": "OPS", "designation": "OPS"},
     ]
@@ -1010,12 +1017,20 @@ emailed_candidates = []
 
 ### New code
 
+# groups = [
+#     {'start': 0, 'end': 400, 'config': 'Developer'},
+#     {'start': 400, 'end': 788, 'config': 'Developer'},
+#     {'start': 788, 'end': 802, 'config': 'Leadership'},
+#     {'start': 802, 'end': 986, 'config': 'HR'},
+#     {'start': 986, 'end': 1000, 'config': 'Account'}
+# ]
+
 groups = [
-    {'start': 0, 'end': 400, 'config': 'Developer'},
-    {'start': 400, 'end': 788, 'config': 'Developer'},
-    {'start': 788, 'end': 802, 'config': 'Leadership'},
-    {'start': 802, 'end': 986, 'config': 'HR'},
-    {'start': 986, 'end': 1000, 'config': 'Account'}
+    {'start': 0, 'end': 40, 'config': 'Developer'},
+    # {'start': 400, 'end': 788, 'config': 'Developer'},
+    {'start': 40, 'end': 78, 'config': 'Leadership'},
+    {'start': 78, 'end': 94, 'config': 'HR'},
+    {'start': 94, 'end': 102, 'config': 'Account'}
 ]
 
 department_config = {
