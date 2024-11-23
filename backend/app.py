@@ -1068,7 +1068,7 @@ groups = [
     # {'start': 400, 'end': 788, 'config': 'Developer'},
     {'start': 40, 'end': 78, 'config': 'Leadership'},
     {'start': 78, 'end': 94, 'config': 'HR'},
-    {'start': 94, 'end': 102, 'config': 'Account'}
+    {'start': 94, 'end': 120, 'config': 'Account'}
 ]
 
 department_config = {
