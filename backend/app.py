@@ -75,89 +75,89 @@ db.init_app(app)
 
 def insert_dummy_data():
     colleagues_data = [
-        # {"name": "Alice Johnson", "email": "22dp1000105@ds.study.iitm.ac.in",
-        #     "department": "IT", "designation": "Analyst"},
+        {"name": "Alice Johnson", "email": "22dp1000105@ds.study.iitm.ac.in",
+            "department": "IT", "designation": "Analyst"},
         {"name": "Anurag Kumar GMAIL", "email": "akanuragkumar75@gmail.com",
             "department": "Developer", "designation": "Developer"},
         {"name": "Anurag Kumar", "email": "tech@kvqaindia.com",
             "department": "Developer", "designation": "Frontend Developer"},
-        # {"name": "Anurag Gmail", "email": "akanuragkumar4@gmail.com",
-        #     "department": "Leadership", "designation": "CFO"},
-        {"name": "Ritika", "email": "training@kvqaindia.com",
-            "department": "Leadership", "designation": "CTO"},
+        {"name": "Anurag Gmail", "email": "akanuragkumar4@gmail.com",
+            "department": "Leadership", "designation": "CFO"},
+        # {"name": "Ritika", "email": "training@kvqaindia.com",
+        #     "department": "Leadership", "designation": "CTO"},
         # {"name": "Lav Kaushik", "email": "lav@kvqaindia.com",
         #     "department": "Leadership", "designation": "CEO"},
         # {"name": "Ritika GMAIL", "email": "ritzgupta998@gmail.com",
         #     "department": "Leadership", "designation": "CFO"},
         # {"name": "Ritika Fashion", "email": "ritzfashiononline@gmail.com",
         #     "department": "Leadership", "designation": "CFO"},
-        # {"name": "Lav Kaushik_temp", "email": "somag89556@cpaurl.com",
-        #     "department": "Leadership", "designation": "CEO"},
-        # {"name": "Varun_temp", "email": "kafay34325@cpaurl.com",
-        #     "department": "Leadership", "designation": "CEO"},
-        # {"name": "TRG_temp", "email": "hafebom642@exoular.com",
-        #     "department": "Training", "designation": "Training Coordinator"},
-        # {"name": "sales_temp", "email": "hasej86977@gitated.com",
-        #     "department": "Sales", "designation": "Sales Head"},
-        # {"name": "NoidaISO_temp", "email": "pecepi9521@cashbn.com",
-        #     "department": "Noida", "designation": "Noida"},
-        # {"name": "Ruby_temp", "email": "namax29728@gitated.com",
-        #     "department": "IT", "designation": "IT Operations"},
-        # {"name": "Babli_temp", "email": "tixiy15582@cashbn.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "Shikha_temp", "email": "yolenif475@gitated.com",
-        #     "department": "Operations", "designation": "Opeartion Head"},
-        # {"name": "Kanchan_temp", "email": "jowis58296@cpaurl.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "Info_temp", "email": "kehot22123@cpaurl.com",
-        #     "department": "Operations", "designation": "Information Sharing"},
-        # {"name": "Vaishali_temp", "email": "tomacob234@cpaurl.com",
-        #     "department": "Certificate", "designation": "Certificate Head"},
-        # {"name": "Neha_temp", "email": "dogif17943@cpaurl.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "DHR_temp", "email": "yinonoj630@kazvi.com",
-        #     "department": "DHR", "designation": "DHR"},
-        # {"name": "Delhi_temp", "email": "selofo8026@merotx.com",
-        #     "department": "Delhi", "designation": "Delhi"},
-        # {"name": "Arun_temp", "email": "xison17512@kazvi.com",
-        #     "department": "Leadership", "designation": "CFO"},
-        # {"name": "OPS_temp", "email": "citeji5554@kimasoft.com",
-        #     "department": "OPS", "designation": "OPS"},
-        # {"name": "Lav Kaushik_temp", "email": "kixit64836@gitated.com",
-        #     "department": "Leadership", "designation": "CEO"},
-        # {"name": "Varun_temp", "email": "fakewi8084@cashbn.com",
-        #     "department": "Leadership", "designation": "CEO"},
-        # {"name": "TRG_temp", "email": "behawi2407@cpaurl.com",
-        #     "department": "Training", "designation": "Training Coordinator"},
-        # {"name": "sales_temp", "email": "powog89677@cashbn.com",
-        #     "department": "Sales", "designation": "Sales Head"},
-        # {"name": "NoidaISO_temp", "email": "lijojid877@cpaurl.com",
-        #     "department": "Noida", "designation": "Noida"},
-        # {"name": "Ruby_temp", "email": "mokob12207@cashbn.com",
-        #     "department": "IT", "designation": "IT Operations"},
-        # {"name": "Babli_temp", "email": "gamek16395@gitated.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "Shikha_temp", "email": "kecit61211@cashbn.com",
-        #     "department": "Operations", "designation": "Opeartion Head"},
-        # {"name": "Kanchan_temp", "email": "veraye2238@exoular.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "Info_temp", "email": "rofac89385@exoular.com",
-        #     "department": "Operations", "designation": "Information Sharing"},
-        # {"name": "Vaishali_temp", "email": "mogiled377@cashbn.com",
-        #     "department": "Certificate", "designation": "Certificate Head"},
-        # {"name": "Neha_temp", "email": "yaboba4269@exoular.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "DHR_temp", "email": "sakos22466@cashbn.com",
-        #     "department": "DHR", "designation": "DHR"},
-        # {"name": "Delhi_temp", "email": "hanahir357@exoular.com",
-        #     "department": "Delhi", "designation": "Delhi"},
-        # {"name": "Arun_temp", "email": "hisasog163@exoular.com",
-        #     "department": "Leadership", "designation": "CFO"},
-        # {"name": "OPS_temp", "email": "hogihen707@cashbn.com",
-        #     "department": "OPS", "designation": "OPS"},
-            
-        {"name": "Krishna Chaudhari", "email": "krishna.chaudhari@riaadvisory.com",
-            "department": "Internal IT and Cloud Ops", "designation": "Associate Consultant"},
+        {"name": "Lav Kaushik_temp", "email": "somag89556@cpaurl.com",
+            "department": "Leadership", "designation": "CEO"},
+        {"name": "Varun_temp", "email": "kafay34325@cpaurl.com",
+            "department": "Leadership", "designation": "CEO"},
+        {"name": "TRG_temp", "email": "hafebom642@exoular.com",
+            "department": "Training", "designation": "Training Coordinator"},
+        {"name": "sales_temp", "email": "hasej86977@gitated.com",
+            "department": "Sales", "designation": "Sales Head"},
+        {"name": "NoidaISO_temp", "email": "pecepi9521@cashbn.com",
+            "department": "Noida", "designation": "Noida"},
+        {"name": "Ruby_temp", "email": "namax29728@gitated.com",
+            "department": "IT", "designation": "IT Operations"},
+        {"name": "Babli_temp", "email": "tixiy15582@cashbn.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "Shikha_temp", "email": "yolenif475@gitated.com",
+            "department": "Operations", "designation": "Opeartion Head"},
+        {"name": "Kanchan_temp", "email": "jowis58296@cpaurl.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "Info_temp", "email": "kehot22123@cpaurl.com",
+            "department": "Operations", "designation": "Information Sharing"},
+        {"name": "Vaishali_temp", "email": "tomacob234@cpaurl.com",
+            "department": "Certificate", "designation": "Certificate Head"},
+        {"name": "Neha_temp", "email": "dogif17943@cpaurl.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "DHR_temp", "email": "yinonoj630@kazvi.com",
+            "department": "DHR", "designation": "DHR"},
+        {"name": "Delhi_temp", "email": "selofo8026@merotx.com",
+            "department": "Delhi", "designation": "Delhi"},
+        {"name": "Arun_temp", "email": "xison17512@kazvi.com",
+            "department": "Leadership", "designation": "CFO"},
+        {"name": "OPS_temp", "email": "citeji5554@kimasoft.com",
+            "department": "OPS", "designation": "OPS"},
+        {"name": "Lav Kaushik_temp", "email": "kixit64836@gitated.com",
+            "department": "Leadership", "designation": "CEO"},
+        {"name": "Varun_temp", "email": "fakewi8084@cashbn.com",
+            "department": "Leadership", "designation": "CEO"},
+        {"name": "TRG_temp", "email": "behawi2407@cpaurl.com",
+            "department": "Training", "designation": "Training Coordinator"},
+        {"name": "sales_temp", "email": "powog89677@cashbn.com",
+            "department": "Sales", "designation": "Sales Head"},
+        {"name": "NoidaISO_temp", "email": "lijojid877@cpaurl.com",
+            "department": "Noida", "designation": "Noida"},
+        {"name": "Ruby_temp", "email": "mokob12207@cashbn.com",
+            "department": "IT", "designation": "IT Operations"},
+        {"name": "Babli_temp", "email": "gamek16395@gitated.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "Shikha_temp", "email": "kecit61211@cashbn.com",
+            "department": "Operations", "designation": "Opeartion Head"},
+        {"name": "Kanchan_temp", "email": "veraye2238@exoular.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "Info_temp", "email": "rofac89385@exoular.com",
+            "department": "Operations", "designation": "Information Sharing"},
+        {"name": "Vaishali_temp", "email": "mogiled377@cashbn.com",
+            "department": "Certificate", "designation": "Certificate Head"},
+        {"name": "Neha_temp", "email": "yaboba4269@exoular.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "DHR_temp", "email": "sakos22466@cashbn.com",
+            "department": "DHR", "designation": "DHR"},
+        {"name": "Delhi_temp", "email": "hanahir357@exoular.com",
+            "department": "Delhi", "designation": "Delhi"},
+        {"name": "Arun_temp", "email": "hisasog163@exoular.com",
+            "department": "Leadership", "designation": "CFO"},
+        {"name": "OPS_temp", "email": "hogihen707@cashbn.com",
+            "department": "OPS", "designation": "OPS"},
+
+        # {"name": "Krishna Chaudhari", "email": "krishna.chaudhari@riaadvisory.com",
+        #     "department": "Internal IT and Cloud Ops", "designation": "Associate Consultant"},
         # {"name": "Krishna Chaudhari GMAIL", "email": "krish.chaudhari2018@gmail.com",
         #     "department": "Internal IT and Cloud Ops", "designation": "Associate Consultant"},
         # {"name": "Jibin Sebastian", "email": "jibin.sebastian@riaadvisory.com",
@@ -168,148 +168,148 @@ def insert_dummy_data():
         #     "department": "Operations", "designation": "Senior Consultant - Admin"},
         # {"name": "Suraj Kamble", "email": "suraj.kambale@riaadvisory.com",
         #     "department": "Developer", "designation": "Consultant"},
-         {"name": "IT guy", "email": "marwin.ibanez@riaadvisory.com",
-            "department": "Developer", "designation": "Consultant"},
+        # {"name": "IT guy", "email": "marwin.ibanez@riaadvisory.com",
+        #     "department": "Developer", "designation": "Consultant"},
         # {"name": "Eva Adams", "email": "eva.adams@bing.com", "designation": "HR"},
 
-        # {"name": "Ritika", "email": "tosopeg490@cpaurl.com",
-        #     "department": "Leadership", "designation": "CTO"},
-        # {"name": "Lav Kaushik", "email": "dojel51420@exoular.com",
-        #     "department": "Leadership", "designation": "CEO"},
-        # {"name": "Varun", "email": "wenayir754@gitated.com",
-        #     "department": "Leadership", "designation": "CEO"},
-        # {"name": "TRG", "email": "lapec18115@cpaurl.com",
-        #     "department": "Training", "designation": "Training Coordinator"},
-        # {"name": "sales", "email": "tisopa4652@cashbn.com",
-        #     "department": "Sales", "designation": "Sales Head"},
-        # {"name": "NoidaISO", "email": "cajoki9143@cashbn.com",
-        #     "department": "Noida", "designation": "Noida"},
-        # {"name": "Ruby", "email": "peway67109@gitated.com",
-        #     "department": "IT", "designation": "IT Operations"},
-        # {"name": "Babli", "email": "libadef322@cpaurl.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "Shikha", "email": "xepesic916@gitated.com",
-        #     "department": "Operations", "designation": "Opeartion Head"},
-        # {"name": "Kanchan", "email": "gociy10751@cashbn.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "Info", "email": "livamex757@exoular.com",
-        #     "department": "Operations", "designation": "Information Sharing"},
-        # {"name": "Vaishali", "email": "xovijoh828@gitated.com",
-        #     "department": "Certificate", "designation": "Certificate Head"},
-        # {"name": "Neha", "email": "xexeke6928@exoular.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "DHR", "email": "gimejob509@gitated.com",
-        #     "department": "DHR", "designation": "DHR"},
-        # {"name": "Delhi", "email": "goxasa1124@exoular.com",
-        #     "department": "Delhi", "designation": "Delhi"},
-        # {"name": "Arun", "email": "lihiy72683@cpaurl.com",
-        #     "department": "Leadership", "designation": "CFO"},
-        # {"name": "OPS", "email": "jahep63024@cpaurl.com",
-        #     "department": "OPS", "designation": "OPS"},
-        # {"name": "Anurag Kumar", "email": "akanuragkumar75@gmail.com",
-        #     "department": "Developer", "designation": "Developer"},
-        # {"name": "Himanshi", "email": "xoloko1077@cpaurl.com",
-        #     "department": "Data Analyzer", "designation" : "Data Analyst"},
-        # {"name": "Lav Kaushik_temp", "email": "halonim833@cashbn.com",
-        #     "department": "Leadership", "designation": "CEO"},
-        # {"name": "Varun_temp", "email": "negono6293@cpaurl.com",
-        #     "department": "Leadership", "designation": "CEO"},
-        # {"name": "TRG_temp", "email": "lawiy24270@exoular.com",
-        #     "department": "Training", "designation": "Training Coordinator"},
-        # {"name": "sales_temp", "email": "tahige1177@exoular.com",
-        #     "department": "Sales", "designation": "Sales Head"},
-        # {"name": "NoidaISO_temp", "email": "kococeh740@gitated.com",
-        #     "department": "Noida", "designation": "Noida"},
-        # {"name": "Ruby_temp", "email": "nived34325@exoular.com",
-        #     "department": "IT", "designation": "IT Operations"},
-        # {"name": "Babli_temp", "email": "xexobos196@exoular.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "Shikha_temp", "email": "sales56612@gitated.com",
-        #     "department": "Operations", "designation": "Opeartion Head"},
-        # {"name": "Kanchan_temp", "email": "micedat270@cashbn.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "Info_temp", "email": "tekixi5647@cpaurl.com",
-        #     "department": "Operations", "designation": "Information Sharing"},
-        # {"name": "Vaishali_temp", "email": "momila1721@exoular.com",
-        #     "department": "Certificate", "designation": "Certificate Head"},
-        # {"name": "Neha_temp", "email": "pahayis503@cpaurl.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "DHR_temp", "email": "kapeli3117@gitated.com",
-        #     "department": "DHR", "designation": "DHR"},
-        # {"name": "Delhi_temp", "email": "meroyeh366@gitated.com",
-        #     "department": "Delhi", "designation": "Delhi"},
-        # {"name": "Arun_temp", "email": "kobelah642@exoular.com",
-        #     "department": "Leadership", "designation": "CFO"},
-        # {"name": "OPS_temp", "email": "lahif62317@cpaurl.com",
-        #     "department": "OPS", "designation": "OPS"},    
-        # {"name": "Lav Kaushik_temp", "email": "meviv48771@cpaurl.com",
-        #     "department": "Leadership", "designation": "CEO"},
-        # {"name": "Varun_temp", "email": "hocemaw465@gitated.com",
-        #     "department": "Leadership", "designation": "CEO"},
-        # {"name": "TRG_temp", "email": "mahaha3694@gitated.com",
-        #     "department": "Training", "designation": "Training Coordinator"},
-        # {"name": "sales_temp", "email": "piwor54871@cashbn.com",
-        #     "department": "Sales", "designation": "Sales Head"},
-        # {"name": "NoidaISO_temp", "email": "boyev69707@gitated.com",
-        #     "department": "Noida", "designation": "Noida"},
-        # {"name": "Ruby_temp", "email": "nicopa4473@gitated.com",
-        #     "department": "IT", "designation": "IT Operations"},
-        # {"name": "Babli_temp", "email": "wejipe1972@exoular.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "Shikha_temp", "email": "vojag98289@cpaurl.com",
-        #     "department": "Operations", "designation": "Opeartion Head"},
-        # {"name": "Kanchan_temp", "email": "jidodey631@gitated.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "Info_temp", "email": "jagic62267@gitated.com",
-        #     "department": "Operations", "designation": "Information Sharing"},
-        # {"name": "Vaishali_temp", "email": "japige9258@cashbn.com",
-        #     "department": "Certificate", "designation": "Certificate Head"},
-        # {"name": "Neha_temp", "email": "jewad78723@gitated.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "DHR_temp", "email": "royed51006@gitated.com",
-        #     "department": "DHR", "designation": "DHR"},
-        # {"name": "Delhi_temp", "email": "lisag95068@cpaurl.com",
-        #     "department": "Delhi", "designation": "Delhi"},
-        # {"name": "Arun_temp", "email": "tohaxe1328@gitated.com",
-        #     "department": "Leadership", "designation": "CFO"},
-        # {"name": "OPS_temp", "email": "toreh92731@cashbn.com",
-        #     "department": "OPS", "designation": "OPS"},    
-        # {"name": "Lav Kaushik_temp", "email": "radip94739@cashbn.com",
-        #     "department": "Leadership", "designation": "CEO"},
-        # {"name": "Varun_temp", "email": "dametiw700@exoular.com",
-        #     "department": "Leadership", "designation": "CEO"},
-        # {"name": "TRG_temp", "email": "vedij74636@cpaurl.com",
-        #     "department": "Training", "designation": "Training Coordinator"},
-        # {"name": "sales_temp", "email": "wenoh43287@exoular.com",
-        #     "department": "Sales", "designation": "Sales Head"},
-        # {"name": "NoidaISO_temp", "email": "gosedix625@cpaurl.com",
-        #     "department": "Noida", "designation": "Noida"},
-        # {"name": "Ruby_temp", "email": "linij68937@exoular.com",
-        #     "department": "IT", "designation": "IT Operations"},
-        # {"name": "Babli_temp", "email": "femajer941@gitated.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "Anurag Gmail", "email": "akanuragkumar4@gmail.com",
-        #     "department": "Leadership", "designation": "CFO"},
-        # {"name": "Shikha_temp", "email": "yayawo8134@cpaurl.com",
-        #     "department": "Operations", "designation": "Opeartion Head"},
-        # {"name": "Kanchan_temp", "email": "rebeh48383@cashbn.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "Info_temp", "email": "xigam26899@cashbn.com",
-        #     "department": "Operations", "designation": "Information Sharing"},
-        # {"name": "Vaishali_temp", "email": "wicale7240@gitated.com",
-        #     "department": "Certificate", "designation": "Certificate Head"},
-        # {"name": "Neha_temp", "email": "wihex99751@gitated.com",
-        #     "department": "Sales", "designation": "Sales"},
-        # {"name": "DHR_temp", "email": "dahefa9204@gitated.com",
-        #     "department": "DHR", "designation": "DHR"},
-        # {"name": "Delhi_temp", "email": "xinoh70136@cpaurl.com",
-        #     "department": "Delhi", "designation": "Delhi"},
-        # {"name": "Arun_temp", "email": "dojagi5552@exoular.com",
-        #     "department": "Leadership", "designation": "CFO"},
-        # {"name": "Sethi", "email": "tech@kvqaindia.com",
-        #     "department": "Developer", "designation": "Frontend Developer"},
-        # {"name": "OPS_temp", "email": "roroti5291@gitated.com",
-        #     "department": "OPS", "designation": "OPS"},
+        {"name": "Ritika", "email": "tosopeg490@cpaurl.com",
+            "department": "Leadership", "designation": "CTO"},
+        {"name": "Lav Kaushik", "email": "dojel51420@exoular.com",
+            "department": "Leadership", "designation": "CEO"},
+        {"name": "Varun", "email": "wenayir754@gitated.com",
+            "department": "Leadership", "designation": "CEO"},
+        {"name": "TRG", "email": "lapec18115@cpaurl.com",
+            "department": "Training", "designation": "Training Coordinator"},
+        {"name": "sales", "email": "tisopa4652@cashbn.com",
+            "department": "Sales", "designation": "Sales Head"},
+        {"name": "NoidaISO", "email": "cajoki9143@cashbn.com",
+            "department": "Noida", "designation": "Noida"},
+        {"name": "Ruby", "email": "peway67109@gitated.com",
+            "department": "IT", "designation": "IT Operations"},
+        {"name": "Babli", "email": "libadef322@cpaurl.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "Shikha", "email": "xepesic916@gitated.com",
+            "department": "Operations", "designation": "Opeartion Head"},
+        {"name": "Kanchan", "email": "gociy10751@cashbn.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "Info", "email": "livamex757@exoular.com",
+            "department": "Operations", "designation": "Information Sharing"},
+        {"name": "Vaishali", "email": "xovijoh828@gitated.com",
+            "department": "Certificate", "designation": "Certificate Head"},
+        {"name": "Neha", "email": "xexeke6928@exoular.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "DHR", "email": "gimejob509@gitated.com",
+            "department": "DHR", "designation": "DHR"},
+        {"name": "Delhi", "email": "goxasa1124@exoular.com",
+            "department": "Delhi", "designation": "Delhi"},
+        {"name": "Arun", "email": "lihiy72683@cpaurl.com",
+            "department": "Leadership", "designation": "CFO"},
+        {"name": "OPS", "email": "jahep63024@cpaurl.com",
+            "department": "OPS", "designation": "OPS"},
+        {"name": "Anurag Kumar", "email": "akanuragkumar75@gmail.com",
+            "department": "Developer", "designation": "Developer"},
+        {"name": "Himanshi", "email": "xoloko1077@cpaurl.com",
+            "department": "Data Analyzer", "designation": "Data Analyst"},
+        {"name": "Lav Kaushik_temp", "email": "halonim833@cashbn.com",
+            "department": "Leadership", "designation": "CEO"},
+        {"name": "Varun_temp", "email": "negono6293@cpaurl.com",
+            "department": "Leadership", "designation": "CEO"},
+        {"name": "TRG_temp", "email": "lawiy24270@exoular.com",
+            "department": "Training", "designation": "Training Coordinator"},
+        {"name": "sales_temp", "email": "tahige1177@exoular.com",
+            "department": "Sales", "designation": "Sales Head"},
+        {"name": "NoidaISO_temp", "email": "kococeh740@gitated.com",
+            "department": "Noida", "designation": "Noida"},
+        {"name": "Ruby_temp", "email": "nived34325@exoular.com",
+            "department": "IT", "designation": "IT Operations"},
+        {"name": "Babli_temp", "email": "xexobos196@exoular.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "Shikha_temp", "email": "sales56612@gitated.com",
+            "department": "Operations", "designation": "Opeartion Head"},
+        {"name": "Kanchan_temp", "email": "micedat270@cashbn.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "Info_temp", "email": "tekixi5647@cpaurl.com",
+            "department": "Operations", "designation": "Information Sharing"},
+        {"name": "Vaishali_temp", "email": "momila1721@exoular.com",
+            "department": "Certificate", "designation": "Certificate Head"},
+        {"name": "Neha_temp", "email": "pahayis503@cpaurl.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "DHR_temp", "email": "kapeli3117@gitated.com",
+            "department": "DHR", "designation": "DHR"},
+        {"name": "Delhi_temp", "email": "meroyeh366@gitated.com",
+            "department": "Delhi", "designation": "Delhi"},
+        {"name": "Arun_temp", "email": "kobelah642@exoular.com",
+            "department": "Leadership", "designation": "CFO"},
+        {"name": "OPS_temp", "email": "lahif62317@cpaurl.com",
+            "department": "OPS", "designation": "OPS"},
+        {"name": "Lav Kaushik_temp", "email": "meviv48771@cpaurl.com",
+            "department": "Leadership", "designation": "CEO"},
+        {"name": "Varun_temp", "email": "hocemaw465@gitated.com",
+            "department": "Leadership", "designation": "CEO"},
+        {"name": "TRG_temp", "email": "mahaha3694@gitated.com",
+            "department": "Training", "designation": "Training Coordinator"},
+        {"name": "sales_temp", "email": "piwor54871@cashbn.com",
+            "department": "Sales", "designation": "Sales Head"},
+        {"name": "NoidaISO_temp", "email": "boyev69707@gitated.com",
+            "department": "Noida", "designation": "Noida"},
+        {"name": "Ruby_temp", "email": "nicopa4473@gitated.com",
+            "department": "IT", "designation": "IT Operations"},
+        {"name": "Babli_temp", "email": "wejipe1972@exoular.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "Shikha_temp", "email": "vojag98289@cpaurl.com",
+            "department": "Operations", "designation": "Opeartion Head"},
+        {"name": "Kanchan_temp", "email": "jidodey631@gitated.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "Info_temp", "email": "jagic62267@gitated.com",
+            "department": "Operations", "designation": "Information Sharing"},
+        {"name": "Vaishali_temp", "email": "japige9258@cashbn.com",
+            "department": "Certificate", "designation": "Certificate Head"},
+        {"name": "Neha_temp", "email": "jewad78723@gitated.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "DHR_temp", "email": "royed51006@gitated.com",
+            "department": "DHR", "designation": "DHR"},
+        {"name": "Delhi_temp", "email": "lisag95068@cpaurl.com",
+            "department": "Delhi", "designation": "Delhi"},
+        {"name": "Arun_temp", "email": "tohaxe1328@gitated.com",
+            "department": "Leadership", "designation": "CFO"},
+        {"name": "OPS_temp", "email": "toreh92731@cashbn.com",
+            "department": "OPS", "designation": "OPS"},
+        {"name": "Lav Kaushik_temp", "email": "radip94739@cashbn.com",
+            "department": "Leadership", "designation": "CEO"},
+        {"name": "Varun_temp", "email": "dametiw700@exoular.com",
+            "department": "Leadership", "designation": "CEO"},
+        {"name": "TRG_temp", "email": "vedij74636@cpaurl.com",
+            "department": "Training", "designation": "Training Coordinator"},
+        {"name": "sales_temp", "email": "wenoh43287@exoular.com",
+            "department": "Sales", "designation": "Sales Head"},
+        {"name": "NoidaISO_temp", "email": "gosedix625@cpaurl.com",
+            "department": "Noida", "designation": "Noida"},
+        {"name": "Ruby_temp", "email": "linij68937@exoular.com",
+            "department": "IT", "designation": "IT Operations"},
+        {"name": "Babli_temp", "email": "femajer941@gitated.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "Anurag Gmail", "email": "akanuragkumar4@gmail.com",
+            "department": "Leadership", "designation": "CFO"},
+        {"name": "Shikha_temp", "email": "yayawo8134@cpaurl.com",
+            "department": "Operations", "designation": "Opeartion Head"},
+        {"name": "Kanchan_temp", "email": "rebeh48383@cashbn.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "Info_temp", "email": "xigam26899@cashbn.com",
+            "department": "Operations", "designation": "Information Sharing"},
+        {"name": "Vaishali_temp", "email": "wicale7240@gitated.com",
+            "department": "Certificate", "designation": "Certificate Head"},
+        {"name": "Neha_temp", "email": "wihex99751@gitated.com",
+            "department": "Sales", "designation": "Sales"},
+        {"name": "DHR_temp", "email": "dahefa9204@gitated.com",
+            "department": "DHR", "designation": "DHR"},
+        {"name": "Delhi_temp", "email": "xinoh70136@cpaurl.com",
+            "department": "Delhi", "designation": "Delhi"},
+        {"name": "Arun_temp", "email": "dojagi5552@exoular.com",
+            "department": "Leadership", "designation": "CFO"},
+        {"name": "Sethi", "email": "tech@kvqaindia.com",
+            "department": "Developer", "designation": "Frontend Developer"},
+        {"name": "OPS_temp", "email": "roroti5291@gitated.com",
+            "department": "OPS", "designation": "OPS"},
     ]
 
     # colleagues = [Colleagues(name=data['name'], email=data['email'],
@@ -1017,7 +1017,7 @@ emailed_candidates = []
 #         print(f"Error in sending emails: {str(e)}")
 
 
-### New code
+# New code
 
 # groups = [
 #     {'start': 0, 'end': 400, 'config': 'Developer'},
@@ -1164,6 +1164,76 @@ templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
 #         return jsonify({'message': f'Error: {str(e)}', 'status': 'error'}), 500
 
 
+# @app.route('/send_email', methods=['POST'])
+# def send_email():
+#     try:
+#         emails_sent = []  # Keep track of sent emails
+#         failed_emails = []  # Track failed emails for debugging
+
+#         # SMTP connection setup
+#         with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
+#             server.starttls()
+#             server.login(os.getenv('DEVELOPER_1_EMAIL'), os.getenv('DEVELOPER_1_PASSWORD'))
+#               # Adjust based on department
+
+#             # server.login(os.getenv('ACCOUNT_EMAIL'), os.getenv('ACCOUNT_PASSWORD'))
+
+#             # Fetch emails from the database for a specific group
+#             for colleague in Colleagues.query.filter(Colleagues.id >= 1, Colleagues.id <= 400):  # Adjust range for each group
+#                 to_email = colleague.email
+#                 config = department_config['Developer_1']  # Adjust based on group
+#                 msg = MIMEMultipart('related')
+#                 msg['Subject'] = config['subject']
+#                 msg['From'] = config['email']
+#                 msg['To'] = to_email
+
+#                 # Prepare the email body
+#                 with open(os.path.join('templates', config['template'])) as f:
+#                     email_template = f.read()
+
+#                 common_training_link = f"https://trial-ria-app.vercel.app/phishing_test/{colleague.id}"
+
+#                 body = email_template.replace("{{recipient_name}}", colleague.name)
+#                 body = body.replace("{{action_link}}", common_training_link)
+#                 body = body.replace("{{action_name}}", config['action_name'])
+#                 body = body.replace("{{email_subject}}", config['subject'])
+
+#                 html_content = f"<html><body>{body}</body></html>"
+#                 msg.attach(MIMEText(html_content, 'html'))
+
+#                 try:
+#                     # Send the email
+#                     server.send_message(msg)
+#                     emails_sent.append(colleague.email)  # Track successful email
+
+#                     # Log the email in the database
+#                     update_email_log(colleague)
+
+#                     # Log progress with a print statement (to avoid Gunicorn timeout)
+#                     print(f"Email successfully sent to: {colleague.email}")
+
+#                     # Optional: delay to avoid too rapid sending
+#                     time.sleep(1)  # Small delay between emails
+
+#                 except Exception as e:
+#                     print(f"Failed to send email to {colleague.email}: {str(e)}")
+#                     failed_emails.append(colleague.email)  # Track failed email
+
+#         # After processing all emails, print a completion log
+#         print(f"All emails processed. Sent: {len(emails_sent)}, Failed: {len(failed_emails)}")
+
+#         return jsonify({
+#             'message': 'Emails sent successfully.',
+#             'status': 'success',
+#             'emails_sent': emails_sent,
+#             'failed_emails': failed_emails
+#         }), 200
+
+#     except Exception as e:
+#         print(f"Error occurred: {str(e)}")
+#         return jsonify({'message': f"Error: {str(e)}", 'status': 'error'}), 500
+
+# Send mail code with dynamic group selection
 
 @app.route('/send_email', methods=['POST'])
 def send_email():
@@ -1174,54 +1244,75 @@ def send_email():
         # SMTP connection setup
         with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
             server.starttls()
-            server.login(os.getenv('DEVELOPER_1_EMAIL'), os.getenv('DEVELOPER_1_PASSWORD'))
-              # Adjust based on department
 
-            # server.login(os.getenv('ACCOUNT_EMAIL'), os.getenv('ACCOUNT_PASSWORD'))
+            # Iterate through groups and send emails for each group
+            for group in groups:
+                start, end, department = group['start'], group['end'], group['config']
+                config = department_config[department]
 
-            # Fetch emails from the database for a specific group
-            for colleague in Colleagues.query.filter(Colleagues.id >= 1, Colleagues.id <= 400):  # Adjust range for each group
-                to_email = colleague.email
-                config = department_config['Developer_1']  # Adjust based on group
-                msg = MIMEMultipart('related')
-                msg['Subject'] = config['subject']
-                msg['From'] = config['email']
-                msg['To'] = to_email
-
-                # Prepare the email body
-                with open(os.path.join('templates', config['template'])) as f:
-                    email_template = f.read()
-
-                common_training_link = f"https://trial-ria-app.vercel.app/phishing_test/{colleague.id}"
-
-                body = email_template.replace("{{recipient_name}}", colleague.name)
-                body = body.replace("{{action_link}}", common_training_link)
-                body = body.replace("{{action_name}}", config['action_name'])
-                body = body.replace("{{email_subject}}", config['subject'])
-
-                html_content = f"<html><body>{body}</body></html>"
-                msg.attach(MIMEText(html_content, 'html'))
-
+                # Log in to the SMTP server with the current department's credentials
                 try:
-                    # Send the email
-                    server.send_message(msg)
-                    emails_sent.append(colleague.email)  # Track successful email
-
-                    # Log the email in the database
-                    update_email_log(colleague)
-
-                    # Log progress with a print statement (to avoid Gunicorn timeout)
-                    print(f"Email successfully sent to: {colleague.email}")
-
-                    # Optional: delay to avoid too rapid sending
-                    time.sleep(1)  # Small delay between emails
-
+                    server.login(config['email'], config['password'])
                 except Exception as e:
-                    print(f"Failed to send email to {colleague.email}: {str(e)}")
-                    failed_emails.append(colleague.email)  # Track failed email
+                    print(f"Login failed for {config['email']}: {str(e)}")
+                    return jsonify({
+                        'message': f"SMTP login failed for {config['email']}",
+                        'status': 'error',
+                        'error': str(e)
+                    }), 500
 
-        # After processing all emails, print a completion log
-        print(f"All emails processed. Sent: {len(emails_sent)}, Failed: {len(failed_emails)}")
+                # Fetch colleagues in the current group
+                colleagues = Colleagues.query.filter(
+                    Colleagues.id >= start, Colleagues.id < end).all()
+
+                for colleague in colleagues:
+                    to_email = colleague.email
+                    msg = MIMEMultipart('related')
+                    msg['Subject'] = config['subject']
+                    msg['From'] = config['email']
+                    msg['To'] = to_email
+
+                    # Prepare the email body
+                    with open(os.path.join('templates', config['template'])) as f:
+                        email_template = f.read()
+
+                    common_training_link = f"https://trial-ria-app.vercel.app/phishing_test/{colleague.id}"
+
+                    body = email_template.replace(
+                        "{{recipient_name}}", colleague.name)
+                    body = body.replace(
+                        "{{action_link}}", common_training_link)
+                    body = body.replace(
+                        "{{action_name}}", config['action_name'])
+                    body = body.replace("{{email_subject}}", config['subject'])
+
+                    html_content = f"<html><body>{body}</body></html>"
+                    msg.attach(MIMEText(html_content, 'html'))
+
+                    try:
+                        # Send the email
+                        server.send_message(msg)
+                        # Track successful email
+                        emails_sent.append(colleague.email)
+
+                        # Log the email in the database
+                        update_email_log(colleague)
+
+                        # Log progress
+                        print(f"Email successfully sent to: {colleague.email}")
+
+                        # Optional: delay to avoid rapid sending
+                        time.sleep(1)  # Small delay between emails
+
+                    except Exception as e:
+                        print(
+                            f"Failed to send email to {colleague.email}: {str(e)}")
+                        # Track failed email
+                        failed_emails.append(colleague.email)
+
+        # After processing all groups, print a completion log
+        print(
+            f"All emails processed. Sent: {len(emails_sent)}, Failed: {len(failed_emails)}")
 
         return jsonify({
             'message': 'Emails sent successfully.',
