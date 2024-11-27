@@ -2844,8 +2844,8 @@ emailed_candidates = []
 groups = [
     # {'start': 0, 'end': 3, 'config': 'Developer'},
     # {'start': 400, 'end': 788, 'config': 'Developer_1'},
-    {'start': 0, 'end': 3, 'config': 'Leadership'},
-    # {'start': 802, 'end': 986, 'config': 'HR'},
+    # {'start': 0, 'end': 3, 'config': 'Leadership'},
+    {'start': 0, 'end': 3, 'config': 'HR'},
     # {'start': 986, 'end': 1001, 'config': 'Account'}
 ]
 
