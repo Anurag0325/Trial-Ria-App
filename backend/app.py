@@ -75,12 +75,12 @@ db.init_app(app)
 
 def insert_dummy_data():
     colleagues_data = [
-        {"name": "Alice Johnson", "email": "22dp1000105@ds.study.iitm.ac.in",
-            "department": "IT", "designation": "Analyst"},
-        {"name": "Anurag Kumar GMAIL", "email": "akanuragkumar75@gmail.com",
-            "department": "Developer", "designation": "Developer"},
-        # {"name": "Anurag Kumar", "email": "tech@kvqaindia.com",
-        #     "department": "Developer", "designation": "Frontend Developer"},
+        # {"name": "Alice Johnson", "email": "22dp1000105@ds.study.iitm.ac.in",
+        #     "department": "IT", "designation": "Analyst"},
+        # {"name": "Anurag Kumar GMAIL", "email": "akanuragkumar75@gmail.com",
+        #     "department": "Developer", "designation": "Developer"},
+        {"name": "Anurag Kumar", "email": "tech@kvqaindia.com",
+            "department": "Developer", "designation": "Frontend Developer"},
         # {"name": "Anurag Gmail", "email": "akanuragkumar4@gmail.com",
         #     "department": "Leadership", "designation": "CFO"},
         # {"name": "Ritika", "email": "training@kvqaindia.com",
@@ -156,20 +156,22 @@ def insert_dummy_data():
         # {"name": "OPS_temp", "email": "hogihen707@cashbn.com",
         #     "department": "OPS", "designation": "OPS"},
 
-        # # {"name": "Krishna Chaudhari", "email": "krishna.chaudhari@riaadvisory.com",
-        # #     "department": "Internal IT and Cloud Ops", "designation": "Associate Consultant"},
-        # # {"name": "Krishna Chaudhari GMAIL", "email": "krish.chaudhari2018@gmail.com",
-        # #     "department": "Internal IT and Cloud Ops", "designation": "Associate Consultant"},
-        # # {"name": "Jibin Sebastian", "email": "jibin.sebastian@riaadvisory.com",
-        # #     "department": "Operations", "designation": "Consultant - Admin"},
+        {"name": "Krishna Chaudhari", "email": "krishna.chaudhari@riaadvisory.com",
+            "department": "Internal IT and Cloud Ops", "designation": "Associate Consultant"},
+        # {"name": "Krishna Chaudhari GMAIL", "email": "krish.chaudhari2018@gmail.com",
+        #     "department": "Internal IT and Cloud Ops", "designation": "Associate Consultant"},
+        # {"name": "Jibin Sebastian", "email": "jibin.sebastian@riaadvisory.com",
+        #     "department": "Operations", "designation": "Consultant - Admin"},
         # # {"name": "Salman Ansari", "email": "salman.ansari@riaadvisory.com",
         # #     "department": "Internal IT and Cloud Ops", "designation": "Director - CISO"},
-        # # {"name": "Deepak Nichani", "email": "deepak.nichani@riaadvisory.com",
-        # #     "department": "Operations", "designation": "Senior Consultant - Admin"},
+        # {"name": "Deepak Nichani", "email": "deepak.nichani@riaadvisory.com",
+        #     "department": "Operations", "designation": "Senior Consultant - Admin"},
         # # {"name": "Suraj Kamble", "email": "suraj.kambale@riaadvisory.com",
         # #     "department": "Developer", "designation": "Consultant"},
         # # {"name": "IT guy", "email": "marwin.ibanez@riaadvisory.com",
         # #     "department": "Developer", "designation": "Consultant"},
+        # {"name": "Aishwarya Gadikar", "email": "aishwarya.gadikar@riaadvisory.com",
+        #     "department": "TMG", "designation": "TMG Consultant"},
         # # {"name": "Eva Adams", "email": "eva.adams@bing.com", "designation": "HR"},
 
         # {"name": "Ritika", "email": "tosopeg490@cpaurl.com",
@@ -2834,9 +2836,17 @@ emailed_candidates = []
 groups = [
     # {'start': 0, 'end': 400, 'config': 'Developer'},
     # {'start': 400, 'end': 788, 'config': 'Developer_1'},
-    {'start': 788, 'end': 802, 'config': 'Leadership'},
-    {'start': 802, 'end': 986, 'config': 'HR'},
-    {'start': 986, 'end': 1001, 'config': 'Account'}
+    # {'start': 788, 'end': 802, 'config': 'Leadership'},
+    # {'start': 802, 'end': 986, 'config': 'HR'},
+    # {'start': 986, 'end': 1001, 'config': 'Account'}
+]
+
+groups = [
+    {'start': 0, 'end': 3, 'config': 'Developer'},
+    # {'start': 400, 'end': 788, 'config': 'Developer_1'},
+    # {'start': 788, 'end': 802, 'config': 'Leadership'},
+    # {'start': 802, 'end': 986, 'config': 'HR'},
+    # {'start': 986, 'end': 1001, 'config': 'Account'}
 ]
 
 # groups = [
@@ -2852,8 +2862,8 @@ department_config = {
         'email': os.getenv('HR_EMAIL'),
         'password': os.getenv('HR_PASSWORD'),
         'template': 'hr_email_template.html',
-        'subject': "Update Your Payroll Information for Q4",
-        'action_name': "Update Payroll Information"
+        'subject': "Performance assessment form  2024",
+        'action_name': "Performance assessment form 2024"
     },
     'Leadership': {
         'email': os.getenv('LEADERSHIP_EMAIL'),
