@@ -1181,7 +1181,7 @@ groups = [
     # {'start': 0, 'end': 3, 'config': 'Developer'},
     # {'start': 400, 'end': 788, 'config': 'Developer_1'},
     # {'start': 0, 'end': 3, 'config': 'Leadership'},
-    {'start': 0, 'end': 183, 'config': 'HR'},
+    {'start': 183, 'end': 404, 'config': 'HR'},
     # {'start': 0, 'end': 3, 'config': 'Account'}
 ]
 
